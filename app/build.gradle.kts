@@ -58,5 +58,7 @@ dependencies {
     implementation(Dependencies.activityCompose)
     implementation(Dependencies.material3)
     composeLibraries()
+    implementation(Dependencies.composeCoil)
+
     testImplementation(Dependencies.testLibraries)
     androidTestImplementation(Dependencies.androidTestLibraries)}

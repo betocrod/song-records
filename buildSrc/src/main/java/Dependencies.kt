@@ -15,6 +15,8 @@ object Dependencies {
     const val composeUITooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val composeUITestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
 
+    // Coil
+    const val composeCoil = "io.coil-kt:coil-compose:${Versions.coil}"
 
     // Material
     const val material3 = "androidx.compose.material3:material3:${Versions.material3}"
