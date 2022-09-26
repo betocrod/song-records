@@ -14,8 +14,11 @@ dependencyResolutionManagement {
     }
 }
 
-include(
-    ":app"
-)
+enableFeaturePreview("VERSION_CATALOGS")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-rootProject.name = "Song Records"
+rootProject.name = "song-records"
+
+
+include(":app")
+include(":features:home:api", ":features:home:impl", ":features:home:wiring")

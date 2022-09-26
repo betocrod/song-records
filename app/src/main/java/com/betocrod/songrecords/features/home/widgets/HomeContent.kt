@@ -35,7 +35,7 @@ fun HomeContent(
 }
 
 @Composable
-private fun HomeContentError(modifier: Modifier = Modifier) {
+fun HomeContentError(modifier: Modifier = Modifier) {
     Box(modifier = modifier.background(MaterialTheme.colorScheme.background)) {
         Text(
             modifier = Modifier.align(Alignment.Center),

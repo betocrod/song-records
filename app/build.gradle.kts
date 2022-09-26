@@ -53,6 +53,8 @@ android {
 
 dependencies {
 
+    implementation(projects.features.home.wiring)
+
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.lifecycleRuntimeKtx)
     implementation(Dependencies.activityCompose)
