@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Song Records</string>
     <string name="feature_home_no_songs_placeholder">There are no songs</string>
+    <string name="feature_home_error">Unexpected error</string>
 </resources>

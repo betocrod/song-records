@@ -18,7 +18,7 @@ class SampleSongListProvider : PreviewParameterProvider<List<Song>> {
         )
 }
 
-private fun getSongList() = (1..10).map {
+internal fun getSongList() = (1..10).map {
     Song(
         name = "Song name #$it",
         image = "https://www.imageurl.com",
