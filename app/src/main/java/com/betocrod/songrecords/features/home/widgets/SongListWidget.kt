@@ -21,10 +21,11 @@ import com.betocrod.songrecords.ui.theme.SongRecordsTheme
 @Composable
 fun SongListWidget(
     songs: List<Song>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(8.dp)
 ) {
     if (songs.isNotEmpty()) {
-        NotEmptyListWidget(modifier, songs)
+        NotEmptyListWidget(songs = songs, modifier = modifier, contentPadding = contentPadding)
     } else {
         EmptyListPlaceHolder(modifier)
     }
@@ -32,13 +33,14 @@ fun SongListWidget(
 
 @Composable
 private fun NotEmptyListWidget(
-    modifier: Modifier,
-    songs: List<Song>
+    songs: List<Song>,
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(8.dp)
 ) {
     LazyColumn(
         modifier = modifier
             .background(MaterialTheme.colorScheme.background),
-        contentPadding = PaddingValues(8.dp)
+        contentPadding = contentPadding
     ) {
         items(songs) {
             SongItemWidget(
@@ -66,6 +68,9 @@ fun PreviewSongListWidget(
     @PreviewParameter(SampleSongListProvider::class) songs: List<Song>
 ) {
     SongRecordsTheme {
-        SongListWidget(songs = songs, modifier = Modifier.fillMaxSize())
+        SongListWidget(
+            songs = songs,
+            modifier = Modifier.fillMaxSize()
+        )
     }
 }
