@@ -1,7 +1,7 @@
-package com.betocrod.features.song.impl.widgets.previewparameters
+package com.betocrod.features.home.impl.widgets.previewparameters
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.betocrod.features.song.impl.model.HomeState
+import com.betocrod.features.home.impl.model.HomeState
 
 class SampleHomeStateProvider : PreviewParameterProvider<HomeState> {
     override val values: Sequence<HomeState>

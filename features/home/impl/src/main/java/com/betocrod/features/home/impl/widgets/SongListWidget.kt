@@ -1,4 +1,4 @@
-package com.betocrod.features.song.impl.widgets
+package com.betocrod.features.home.impl.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.betocrod.features.home.impl.R
-import com.betocrod.features.song.impl.models.Song
-import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongListProvider
+import com.betocrod.features.home.impl.domain.models.Song
+import com.betocrod.features.home.impl.widgets.previewparameters.SampleSongListProvider
 import com.betocrod.designsystem.SongRecordsTheme
 
 @Composable
