@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="feature_home_no_songs_placeholder">There are no songs</string>
-    <string name="feature_home_error">Unexpected error</string>
-    <string name="feature_home_title">Song Records</string>
+
+    <string name="feature_song_no_records_placeholder">No records found</string>
 </resources>
