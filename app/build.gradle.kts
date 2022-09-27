@@ -56,6 +56,7 @@ android {
 dependencies {
 
     implementation(projects.common.designSystem)
+    implementation(projects.features.main.wiring)
     implementation(projects.features.home.wiring)
     implementation(projects.features.song.wiring)
     implementation(projects.features.recorder.wiring)

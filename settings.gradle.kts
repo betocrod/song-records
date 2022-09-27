@@ -38,4 +38,4 @@ fun includeCommons(vararg moduleName: String) {
 
 include(":app")
 includeCommons("designSystem", "navigation")
-includeFeatures("home", "song", "recorder")
+includeFeatures("main", "home", "song", "recorder")

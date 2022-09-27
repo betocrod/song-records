@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 
 
-interface FeatureApi {
+interface FeatureDestination {
 
     fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
