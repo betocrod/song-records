@@ -2,6 +2,8 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.betocrod.songrecords.android.library")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -11,4 +13,6 @@ android {
 dependencies {
     api(projects.features.home.api)
     implementation(projects.features.home.impl)
+
+    hilt()
 }

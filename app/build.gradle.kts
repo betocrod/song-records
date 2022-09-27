@@ -3,6 +3,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -53,7 +55,7 @@ android {
 
 dependencies {
 
-    implementation(projects.designSystem)
+    implementation(projects.common.designSystem)
     implementation(projects.features.home.wiring)
     implementation(projects.features.song.wiring)
     implementation(projects.features.recorder.wiring)
@@ -61,7 +63,9 @@ dependencies {
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.lifecycleRuntimeKtx)
     implementation(Dependencies.activityCompose)
+
     composeLibraries()
+    hilt()
 
     testImplementation(Dependencies.testLibraries)
     androidTestImplementation(Dependencies.androidTestLibraries)

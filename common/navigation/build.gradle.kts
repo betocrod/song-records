@@ -4,12 +4,10 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.betocrod.songrecords.android.library")
-    kotlin("kapt")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
-    namespace = "com.betocrod.features.song.impl"
+    namespace = "com.betocrod.common.navigation"
 
     buildFeatures {
         compose = true
@@ -20,12 +18,6 @@ android {
 }
 
 dependencies {
-
-    implementation(projects.common.designSystem)
-    implementation(projects.features.song.api)
-
-    composeLibraries()
-    hilt()
-
-    implementation(Dependencies.composeCoil)
+    implementation(Dependencies.composeUI)
+    implementation(Dependencies.composeNavigation)
 }

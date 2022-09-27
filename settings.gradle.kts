@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":navigation")
+
+
 pluginManagement {
     repositories {
         google()
@@ -27,6 +30,12 @@ fun includeFeatures(vararg featureName: String) {
     }
 }
 
+fun includeCommons(vararg moduleName: String) {
+    moduleName.forEach {
+        include(":common:$it")
+    }
+}
+
 include(":app")
-include(":designSystem")
+includeCommons("designSystem", "navigation")
 includeFeatures("home", "song", "recorder")
