@@ -13,14 +13,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.designsystem.space.LargeSpace
 import com.betocrod.features.recorder.impl.models.RecorderState
-import com.betocrod.features.recorder.impl.models.Song
 import com.betocrod.features.recorder.impl.widget.RecordButton
+import com.betocrod.features.recorder.impl.widget.SongWidget
 import com.betocrod.features.recorder.impl.widget.previewparameters.SampleRecorderStateProvider
 
 @Composable
@@ -33,7 +31,7 @@ fun RecordScreenScaffold(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = { Text("New record") },
+                title = { Text(stringResource(R.string.feature_recorder_title)) },
                 navigationIcon = {
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(
@@ -106,21 +104,6 @@ private fun SongProgress(progress: Float, modifier: Modifier = Modifier) {
         modifier = modifier,
         progress = progress
     )
-}
-
-@Composable
-private fun SongWidget(song: Song, modifier: Modifier = Modifier) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        AsyncImage(
-            modifier = Modifier.size(64.dp),
-            model = song.image,
-            placeholder = painterResource(id = DSDrawable.ic_image),
-            contentDescription = null
-        )
-        Text(text = song.name)
-        Text(text = song.artist)
-        Text(text = song.year.toString())
-    }
 }
 
 @Preview("Record Screen Scaffold")

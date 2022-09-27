@@ -20,7 +20,8 @@ class SampleRecorderStateProvider : PreviewParameterProvider<RecorderState> {
                 progress = 0.35f
             )
         )
-
-    private fun getSong() =
-        Song("Song name", image = "https://image.com", artist = "Artist name", year = 2022)
 }
+
+
+fun getSong() =
+    Song(name = "Song name", image = "https://image.com", artist = "Artist name", year = 2022)
