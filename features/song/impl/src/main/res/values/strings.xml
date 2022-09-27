@@ -2,4 +2,5 @@
 <resources>
 
     <string name="feature_song_no_records_placeholder">No records found</string>
+    <string name="feature_song_error">Unexpected error</string>
 </resources>

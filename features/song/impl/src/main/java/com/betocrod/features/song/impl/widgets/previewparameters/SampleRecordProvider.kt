@@ -14,8 +14,9 @@ class SampleRecordListProvider : PreviewParameterProvider<List<Record>> {
 
     override val values: Sequence<List<Record>>
         get() = sequenceOf(
-            (0..15).map { Record("March $it, 2022", "Vocal warming $it") },
+            getRecords(),
             listOf()
         )
-
 }
+
+fun getRecords() = (0..15).map { Record("March $it, 2022", "Vocal warming $it") }
