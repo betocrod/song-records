@@ -22,3 +22,4 @@ rootProject.name = "song-records"
 
 include(":app")
 include(":features:home:api", ":features:home:impl", ":features:home:wiring")
+include(":designSystem")

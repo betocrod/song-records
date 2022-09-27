@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.betocrod.features.home.impl"
+    namespace = "com.betocrod.designsystem"
 
     buildFeatures {
         compose = true
@@ -18,10 +18,6 @@ android {
 }
 
 dependencies {
-
-    implementation(projects.designSystem)
-    implementation(projects.features.home.api)
-
     composeLibraries()
     implementation(Dependencies.composeCoil)
 }

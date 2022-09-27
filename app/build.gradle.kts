@@ -53,14 +53,14 @@ android {
 
 dependencies {
 
+    implementation(projects.designSystem)
     implementation(projects.features.home.wiring)
 
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.lifecycleRuntimeKtx)
     implementation(Dependencies.activityCompose)
-    implementation(Dependencies.material3)
     composeLibraries()
-    implementation(Dependencies.composeCoil)
 
     testImplementation(Dependencies.testLibraries)
-    androidTestImplementation(Dependencies.androidTestLibraries)}
+    androidTestImplementation(Dependencies.androidTestLibraries)
+}

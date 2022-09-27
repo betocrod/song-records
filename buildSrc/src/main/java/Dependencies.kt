@@ -42,6 +42,7 @@ object Dependencies {
 
 fun DependencyHandler.composeLibraries(withPreview: Boolean = true) {
     implementation(Dependencies.composeUI)
+    implementation(Dependencies.material3)
     if (withPreview) implementation(Dependencies.composePreview)
     debugImplementation(Dependencies.composeUITooling)
     debugImplementation(Dependencies.composeUITestManifest)
