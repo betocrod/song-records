@@ -19,7 +19,12 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "song-records"
 
+fun includeFeatures(vararg featureName: String) {
+    featureName.forEach {
+        include(":features:$it:api", ":features:$it:impl", ":features:$it:wiring")
+    }
+}
 
 include(":app")
-include(":features:home:api", ":features:home:impl", ":features:home:wiring")
 include(":designSystem")
+includeFeatures("home", "song")

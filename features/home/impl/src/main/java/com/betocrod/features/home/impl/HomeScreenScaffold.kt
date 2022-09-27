@@ -9,9 +9,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.betocrod.designsystem.DSDrawable
-import com.betocrod.features.home.impl.model.HomeState
-import com.betocrod.features.home.impl.widgets.HomeContent
-import com.betocrod.features.home.impl.widgets.previewparameters.SampleHomeStateProvider
+import com.betocrod.features.song.impl.model.HomeState
+import com.betocrod.features.song.impl.widgets.HomeContent
+import com.betocrod.features.song.impl.widgets.previewparameters.SampleHomeStateProvider
 import com.betocrod.designsystem.SongRecordsTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
