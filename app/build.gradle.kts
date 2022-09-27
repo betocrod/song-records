@@ -56,6 +56,7 @@ dependencies {
     implementation(projects.designSystem)
     implementation(projects.features.home.wiring)
     implementation(projects.features.song.wiring)
+    implementation(projects.features.recorder.wiring)
 
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.lifecycleRuntimeKtx)

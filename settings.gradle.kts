@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
     repositories {
         google()
@@ -27,4 +29,4 @@ fun includeFeatures(vararg featureName: String) {
 
 include(":app")
 include(":designSystem")
-includeFeatures("home", "song")
+includeFeatures("home", "song", "recorder")
