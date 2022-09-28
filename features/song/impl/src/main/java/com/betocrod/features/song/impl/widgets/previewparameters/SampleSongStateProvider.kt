@@ -12,9 +12,11 @@ class SampleSongStateProvider : PreviewParameterProvider<SongState> {
                 song = getSongList().first(),
                 records = emptyList()
             ),
-            SongState.SongData(
-                song = getSongList().first(),
-                records = getRecords()
-            )
+            getSongData()
         )
 }
+
+fun getSongData() = SongState.SongData(
+    song = getSongList().first(),
+    records = getRecords()
+)

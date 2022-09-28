@@ -22,6 +22,8 @@ android {
 dependencies {
 
     implementation(projects.common.designSystem)
+    implementation(projects.common.navigation)
+
     implementation(projects.features.song.api)
 
     composeLibraries()

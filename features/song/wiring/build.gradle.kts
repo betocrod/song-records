@@ -13,6 +13,8 @@ android {
 dependencies {
     api(projects.features.song.api)
     implementation(projects.features.song.impl)
+    
+    implementation(projects.common.navigation)
 
     hilt()
 }
