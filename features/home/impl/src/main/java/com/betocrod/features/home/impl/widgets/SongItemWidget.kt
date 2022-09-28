@@ -6,11 +6,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.features.home.impl.domain.models.Song
 import com.betocrod.features.home.impl.widgets.previewparameters.SampleSongProvider
@@ -27,7 +29,11 @@ fun SongItemWidget(song: Song, modifier: Modifier = Modifier) {
         ) {
             AsyncImage(
                 modifier = Modifier.size(64.dp),
-                model = song.image,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(song.image)
+                    .error(DSDrawable.ic_image)
+                    .crossfade(true)
+                    .build(),
                 placeholder = painterResource(id = DSDrawable.ic_image),
                 contentDescription = null
             )

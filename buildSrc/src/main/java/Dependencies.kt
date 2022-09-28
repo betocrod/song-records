@@ -7,6 +7,9 @@ object Dependencies {
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
     const val activityCompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
 
+    // Android
+    const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
+
     // Compose
     const val composeUI = "androidx.compose.ui:ui:${Versions.compose}"
     const val composePreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"

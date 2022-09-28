@@ -4,6 +4,8 @@ object Versions {
     const val androidLibrary = "7.4.0-alpha10"
     const val kotlin = "1.7.0"
 
+    const val appCompat = "1.5.1"
+
     const val activityCompose = "1.5.1"
     const val compose = "1.2.1"
     const val composeNavigation = "2.5.2"

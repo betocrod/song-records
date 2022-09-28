@@ -20,4 +20,5 @@ android {
 dependencies {
     composeLibraries()
     implementation(Dependencies.composeCoil)
+    implementation(Dependencies.appCompat)
 }
