@@ -11,6 +11,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.common.navigation)
+
     api(projects.features.home.api)
     implementation(projects.features.home.impl)
 

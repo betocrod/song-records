@@ -6,12 +6,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.betocrod.common.navigation.FeatureDestination
+import com.betocrod.common.navigation.FeatureNavGraph
 
 @Composable
 fun AppGraph(
     startDestination: String,
-    destinations: Set<FeatureDestination>,
+    destinations: Set<FeatureNavGraph>,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
