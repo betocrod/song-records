@@ -2,7 +2,6 @@ package com.betocrod.features.song.impl
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,6 +20,7 @@ import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongState
 fun SongScaffold(
     songState: SongState,
     onBackClick: () -> Unit,
+    onRecordClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -47,15 +47,15 @@ fun SongScaffold(
             )
         },
         floatingActionButton = {
-            RecordButton()
+            RecordButton(onClick = { onRecordClick() })
         }
     )
 }
 
 @Composable
-private fun RecordButton() {
+private fun RecordButton(onClick: () -> Unit) {
     FloatingActionButton(
-        onClick = { TODO("Not implemented") },
+        onClick = { onClick() },
         content = {
             Icon(
                 painter = painterResource(id = DSDrawable.ic_mic),
@@ -69,6 +69,6 @@ private fun RecordButton() {
 @Composable
 private fun PreviewSongScaffold(@PreviewParameter(SampleSongStateProvider::class) songState: SongState) {
     SongRecordsTheme {
-        SongScaffold(songState = songState, onBackClick = {})
+        SongScaffold(songState = songState, onBackClick = {}, onRecordClick = {})
     }
 }
