@@ -19,7 +19,10 @@ class HomeFeatureNavGraphImpl @Inject constructor() : HomeFeatureNavGraph {
         modifier: Modifier
     ) {
         navGraphBuilder.composable(homeRoute()) {
-            HomeScaffold(homeState = HomeState.SongsLoaded(getSongList()))
+            HomeScaffold(
+                homeState = HomeState.SongsLoaded(getSongList()),
+                onItemClick = { TODO() }
+            )
         }
     }
 }

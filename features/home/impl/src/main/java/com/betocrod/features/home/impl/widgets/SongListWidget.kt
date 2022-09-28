@@ -1,6 +1,7 @@
 package com.betocrod.features.home.impl.widgets
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,19 +14,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.features.home.impl.R
 import com.betocrod.features.home.impl.domain.models.Song
 import com.betocrod.features.home.impl.widgets.previewparameters.SampleSongListProvider
-import com.betocrod.designsystem.SongRecordsTheme
 
 @Composable
 fun SongListWidget(
     songs: List<Song>,
+    onItemClicked: (Song) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(8.dp)
 ) {
     if (songs.isNotEmpty()) {
-        NotEmptyListWidget(songs = songs, modifier = modifier, contentPadding = contentPadding)
+        NotEmptyListWidget(
+            songs = songs,
+            modifier = modifier,
+            contentPadding = contentPadding,
+            onItemClicked = { onItemClicked(it) })
     } else {
         EmptyListPlaceHolder(modifier)
     }
@@ -34,6 +40,7 @@ fun SongListWidget(
 @Composable
 private fun NotEmptyListWidget(
     songs: List<Song>,
+    onItemClicked: (Song) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(8.dp)
 ) {
@@ -45,7 +52,9 @@ private fun NotEmptyListWidget(
         items(songs) {
             SongItemWidget(
                 song = it,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onItemClicked(it) }
             )
             Spacer(modifier = Modifier.size(8.dp))
         }
@@ -70,6 +79,7 @@ fun PreviewSongListWidget(
     SongRecordsTheme {
         SongListWidget(
             songs = songs,
+            onItemClicked = {},
             modifier = Modifier.fillMaxSize()
         )
     }

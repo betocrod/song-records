@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
+import com.betocrod.features.home.impl.domain.models.Song
 import com.betocrod.features.home.impl.model.HomeState
 import com.betocrod.features.home.impl.widgets.HomeContent
 import com.betocrod.features.home.impl.widgets.previewparameters.SampleHomeStateProvider
@@ -20,6 +21,7 @@ import com.betocrod.features.home.impl.widgets.previewparameters.SampleHomeState
 @Composable
 fun HomeScaffold(
     homeState: HomeState,
+    onItemClick: (Song) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -30,6 +32,7 @@ fun HomeScaffold(
         content = {
             HomeContent(
                 state = homeState,
+                onItemClick = { onItemClick(it) },
                 contentPadding = it,
                 modifier = Modifier.padding(horizontal = 8.dp)
             )
@@ -58,6 +61,6 @@ private fun ImportSongButton(onClick: () -> Unit) {
 @Composable
 private fun PreviewHomeScaffold(@PreviewParameter(SampleHomeStateProvider::class) homeState: HomeState) {
     SongRecordsTheme {
-        HomeScaffold(homeState = homeState)
+        HomeScaffold(homeState = homeState, onItemClick = {})
     }
 }

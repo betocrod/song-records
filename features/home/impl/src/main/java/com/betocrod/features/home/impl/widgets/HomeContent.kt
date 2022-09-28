@@ -13,14 +13,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.features.home.impl.R
+import com.betocrod.features.home.impl.domain.models.Song
 import com.betocrod.features.home.impl.model.HomeState
 import com.betocrod.features.home.impl.widgets.previewparameters.SampleHomeStateProvider
-import com.betocrod.designsystem.SongRecordsTheme
 
 @Composable
 fun HomeContent(
     state: HomeState,
+    onItemClick: (Song) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(8.dp)
 ) {
@@ -29,6 +31,7 @@ fun HomeContent(
         is HomeState.SongsLoaded -> SongListWidget(
             modifier = modifier,
             songs = state.songs,
+            onItemClicked = { onItemClick(it) },
             contentPadding = contentPadding
         )
     }
@@ -50,6 +53,6 @@ private fun PreviewHomeContent(
     @PreviewParameter(SampleHomeStateProvider::class) homeState: HomeState
 ) {
     SongRecordsTheme {
-        HomeContent(state = homeState, modifier = Modifier.fillMaxSize())
+        HomeContent(state = homeState, onItemClick = {}, modifier = Modifier.fillMaxSize())
     }
 }
