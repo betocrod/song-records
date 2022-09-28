@@ -10,7 +10,7 @@ import com.betocrod.features.song.api.SongFeatureNavGraph
 import com.betocrod.features.song.impl.widgets.previewparameters.getSongData
 import javax.inject.Inject
 
-class SongFeatureNavGraphImpl @Inject constructor(): SongFeatureNavGraph {
+class SongFeatureNavGraphImpl @Inject constructor() : SongFeatureNavGraph {
 
     private val route = "song"
 
@@ -24,7 +24,7 @@ class SongFeatureNavGraphImpl @Inject constructor(): SongFeatureNavGraph {
         modifier: Modifier
     ) {
         navGraphBuilder.composable(
-            route = route,
+            route = "$route/{$paramSongId}",
             arguments = listOf(
                 navArgument(paramSongId) {
                     type = NavType.StringType
@@ -32,7 +32,10 @@ class SongFeatureNavGraphImpl @Inject constructor(): SongFeatureNavGraph {
                 }
             )
         ) {
-            SongScaffold(songState = getSongData())
+            SongScaffold(
+                songState = getSongData(),
+                onBackClick = { navController.popBackStack() }
+            )
         }
     }
 }

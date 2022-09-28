@@ -25,6 +25,7 @@ dependencies {
     implementation(projects.common.navigation)
 
     implementation(projects.features.home.api)
+    implementation(projects.features.song.api)
 
     composeLibraries()
     hilt()
