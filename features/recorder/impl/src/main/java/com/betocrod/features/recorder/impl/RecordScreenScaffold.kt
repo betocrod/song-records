@@ -24,6 +24,7 @@ import com.betocrod.features.recorder.impl.widget.previewparameters.SampleRecord
 fun RecordScreenScaffold(
     state: RecorderState,
     onRecordClick: () -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -32,7 +33,7 @@ fun RecordScreenScaffold(
             TopAppBar(
                 title = { Text(stringResource(R.string.feature_recorder_title)) },
                 navigationIcon = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { onBackClick() }) {
                         Icon(
                             painter = painterResource(id = DSDrawable.ic_arrow_back),
                             contentDescription = null
@@ -49,7 +50,7 @@ fun RecordScreenScaffold(
                         .fillMaxSize()
                 )
                 is RecorderState.Success -> RecorderContent(
-                    modifier =  Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     contentPadding = it,
                     state = state,
                     onRecordClick = onRecordClick
@@ -77,6 +78,7 @@ fun PreviewRecordScreenScaffold(@PreviewParameter(SampleRecorderStateProvider::c
         RecordScreenScaffold(
             state = recorderState,
             onRecordClick = {},
+            onBackClick = {},
             modifier = Modifier.fillMaxSize()
         )
     }

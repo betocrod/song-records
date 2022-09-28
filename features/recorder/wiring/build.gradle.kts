@@ -11,6 +11,9 @@ android {
 }
 
 dependencies {
+    
+    implementation(projects.common.navigation)
+
     api(projects.features.recorder.api)
     implementation(projects.features.recorder.impl)
 

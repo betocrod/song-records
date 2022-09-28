@@ -26,11 +26,7 @@ class SampleRecorderStateSuccessProvider : PreviewParameterProvider<RecorderStat
 
     override val values: Sequence<RecorderState>
         get() = sequenceOf(
-            RecorderState.Success(
-                song = getSong(),
-                recording = false,
-                progress = 0f
-            ),
+            getSuccessState(),
             RecorderState.Success(
                 song = getSong(),
                 recording = true,
@@ -42,3 +38,9 @@ class SampleRecorderStateSuccessProvider : PreviewParameterProvider<RecorderStat
 
 fun getSong() =
     Song(name = "Song name", image = "https://image.com", artist = "Artist name", year = 2022)
+
+fun getSuccessState() = RecorderState.Success(
+    song = getSong(),
+    recording = false,
+    progress = 0f
+)
