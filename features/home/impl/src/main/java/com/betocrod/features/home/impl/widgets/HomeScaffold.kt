@@ -1,5 +1,8 @@
 package com.betocrod.features.home.impl.widgets
 
+import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,6 +28,9 @@ fun HomeScaffold(
     onItemClick: (Song) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) {
+        Log.i("HomeScaffold - URI:", it?.toString().orEmpty())
+    }
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -41,7 +47,7 @@ fun HomeScaffold(
             )
         },
         floatingActionButton = {
-            ImportSongButton(onClick = { TODO("Not implemented") })
+            ImportSongButton(onClick = { launcher.launch("audio/*") })
         }
     )
 }
