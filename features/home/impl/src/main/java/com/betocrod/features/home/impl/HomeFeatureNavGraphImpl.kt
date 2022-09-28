@@ -1,12 +1,11 @@
 package com.betocrod.features.home.impl
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import com.betocrod.features.home.api.HomeFeatureNavGraph
-import com.betocrod.features.home.impl.model.HomeState
-import com.betocrod.features.home.impl.widgets.previewparameters.getSongList
 import com.betocrod.features.song.api.SongFeatureNavGraph
 import javax.inject.Inject
 
@@ -22,9 +21,9 @@ class HomeFeatureNavGraphImpl @Inject constructor(
         modifier: Modifier
     ) {
         navGraphBuilder.composable(homeRoute()) {
-            HomeScaffold(
-                homeState = HomeState.SongsLoaded(getSongList()),
-                onItemClick = { navController.navigateToSongScreen() }
+            HomeScreen(
+                onItemClick = { navController.navigateToSongScreen() },
+                modifier = Modifier.fillMaxSize()
             )
         }
     }

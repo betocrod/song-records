@@ -20,6 +20,8 @@ object Dependencies {
     // DI
     const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+    const val hiltCompose =  "androidx.hilt:hilt-navigation-compose:${Versions.hiltComposeNavigation}"
+
 
     // Coil
     const val composeCoil = "io.coil-kt:coil-compose:${Versions.coil}"

@@ -15,6 +15,7 @@ object Versions {
     const val material3 = "1.0.0-beta03"
 
     const val hilt = "2.43.2"
+    const val hiltComposeNavigation = "1.0.0"
 
     const val coil = "2.2.1"
 

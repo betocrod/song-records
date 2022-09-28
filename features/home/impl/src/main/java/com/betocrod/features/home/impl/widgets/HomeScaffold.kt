@@ -1,5 +1,6 @@
-package com.betocrod.features.home.impl
+package com.betocrod.features.home.impl.widgets
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.*
@@ -12,9 +13,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
+import com.betocrod.features.home.impl.R
 import com.betocrod.features.home.impl.domain.models.Song
 import com.betocrod.features.home.impl.model.HomeState
-import com.betocrod.features.home.impl.widgets.HomeContent
 import com.betocrod.features.home.impl.widgets.previewparameters.SampleHomeStateProvider
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,9 +33,11 @@ fun HomeScaffold(
         content = {
             HomeContent(
                 state = homeState,
-                onItemClick = { onItemClick(it) },
-                contentPadding = it,
-                modifier = Modifier.padding(horizontal = 8.dp)
+                onItemClick = onItemClick,
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .padding(it)
+                    .fillMaxSize()
             )
         },
         floatingActionButton = {

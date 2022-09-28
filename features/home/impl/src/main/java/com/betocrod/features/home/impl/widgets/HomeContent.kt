@@ -23,16 +23,14 @@ import com.betocrod.features.home.impl.widgets.previewparameters.SampleHomeState
 fun HomeContent(
     state: HomeState,
     onItemClick: (Song) -> Unit,
-    modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(8.dp)
+    modifier: Modifier = Modifier
 ) {
     when (state) {
         HomeState.Error -> HomeContentError(modifier = modifier)
         is HomeState.SongsLoaded -> SongListWidget(
             modifier = modifier,
             songs = state.songs,
-            onItemClicked = { onItemClick(it) },
-            contentPadding = contentPadding
+            onItemClicked = { onItemClick(it) }
         )
     }
 }
