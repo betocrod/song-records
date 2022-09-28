@@ -1,9 +1,11 @@
 buildscript {
-
+    dependencies {
+        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}")
+    }
 }
 
 plugins {
-    id("com.android.application") version Versions.androidApplication apply false
-    id("com.android.library") version Versions.androidLibrary apply false
-    id("org.jetbrains.kotlin.android") version Versions.kotlin apply false
+    id("com.android.application")  apply false
+    id("com.android.library") apply false
+    id("org.jetbrains.kotlin.android") apply false
 }

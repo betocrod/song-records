@@ -7,14 +7,22 @@ object Dependencies {
     const val lifecycleRuntimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleRuntimeKtx}"
     const val activityCompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
 
+    // Android
+    const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
+
     // Compose
     const val composeUI = "androidx.compose.ui:ui:${Versions.compose}"
     const val composePreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
-
-    // Compose debug libraries
+    const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.composeNavigation}"
     const val composeUITooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val composeUITestManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
 
+    // DI
+    const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
+    const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+
+    // Coil
+    const val composeCoil = "io.coil-kt:coil-compose:${Versions.coil}"
 
     // Material
     const val material3 = "androidx.compose.material3:material3:${Versions.material3}"
@@ -40,9 +48,16 @@ object Dependencies {
 
 fun DependencyHandler.composeLibraries(withPreview: Boolean = true) {
     implementation(Dependencies.composeUI)
+    implementation(Dependencies.material3)
+    implementation(Dependencies.composeNavigation)
     if (withPreview) implementation(Dependencies.composePreview)
     debugImplementation(Dependencies.composeUITooling)
     debugImplementation(Dependencies.composeUITestManifest)
+}
+
+fun DependencyHandler.hilt() {
+    add("implementation", Dependencies.hilt)
+    add("kapt", Dependencies.hiltCompiler)
 }
 
 fun DependencyHandler.kapt(list: List<String>) {

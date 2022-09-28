@@ -1,3 +1,8 @@
+@file:Suppress("UnstableApiUsage")
+
+include(":navigation")
+
+
 pluginManagement {
     repositories {
         google()
@@ -14,8 +19,23 @@ dependencyResolutionManagement {
     }
 }
 
-include(
-    ":app"
-)
+enableFeaturePreview("VERSION_CATALOGS")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-rootProject.name = "Song Records"
+rootProject.name = "song-records"
+
+fun includeFeatures(vararg featureName: String) {
+    featureName.forEach {
+        include(":features:$it:api", ":features:$it:impl", ":features:$it:wiring")
+    }
+}
+
+fun includeCommons(vararg moduleName: String) {
+    moduleName.forEach {
+        include(":common:$it")
+    }
+}
+
+include(":app")
+includeCommons("designSystem", "navigation")
+includeFeatures("main", "home", "song", "recorder")
