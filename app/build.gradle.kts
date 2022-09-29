@@ -70,6 +70,6 @@ dependencies {
     composeLibraries()
     hilt()
 
-    testImplementation(Dependencies.testLibraries)
+    unitTestLibraries()
     androidTestImplementation(Dependencies.androidTestLibraries)
 }

@@ -30,7 +30,8 @@ object Dependencies {
     const val material3 = "androidx.compose.material3:material3:${Versions.material3}"
 
     // Test
-    private const val junit = "junit:junit:${Versions.junit}"
+    const val junit = "junit:junit:${Versions.junit}"
+    const val mockk = "io.mockk:mockk:${Versions.mockk}"
 
     // Android test
     private const val androidJUnit = "androidx.test.ext:junit:${Versions.androidJUnit}"
@@ -46,6 +47,11 @@ object Dependencies {
     val testLibraries = arrayListOf<String>().apply {
         add(junit)
     }
+}
+
+fun DependencyHandler.unitTestLibraries() {
+    testImplementation(Dependencies.junit)
+    testImplementation(Dependencies.mockk)
 }
 
 fun DependencyHandler.composeLibraries(withPreview: Boolean = true) {
@@ -92,4 +98,8 @@ fun DependencyHandler.testImplementation(list: List<String>) {
     list.forEach { dependency ->
         add("testImplementation", dependency)
     }
+}
+
+fun DependencyHandler.testImplementation(dependency: String) {
+    add("testImplementation", dependency)
 }

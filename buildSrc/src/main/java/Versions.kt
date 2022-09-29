@@ -20,6 +20,7 @@ object Versions {
     const val coil = "2.2.1"
 
     const val junit = "4.13.2"
+    const val mockk = "1.13.2"
     const val androidJUnit = "1.1.3"
     const val espressoCore = "3.4.0"
 }
