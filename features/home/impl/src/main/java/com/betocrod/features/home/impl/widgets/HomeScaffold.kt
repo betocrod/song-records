@@ -1,8 +1,5 @@
 package com.betocrod.features.home.impl.widgets
 
-import android.util.Log
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,11 +23,9 @@ import com.betocrod.features.home.impl.widgets.previewparameters.SampleHomeState
 fun HomeScaffold(
     homeState: HomeState,
     onItemClick: (Song) -> Unit,
+    onImportClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) {
-        Log.i("HomeScaffold - URI:", it?.toString().orEmpty())
-    }
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -47,7 +42,7 @@ fun HomeScaffold(
             )
         },
         floatingActionButton = {
-            ImportSongButton(onClick = { launcher.launch("audio/*") })
+            ImportSongButton(onClick = { onImportClick() })
         }
     )
 }
@@ -70,6 +65,6 @@ private fun ImportSongButton(onClick: () -> Unit) {
 @Composable
 private fun PreviewHomeScaffold(@PreviewParameter(SampleHomeStateProvider::class) homeState: HomeState) {
     SongRecordsTheme {
-        HomeScaffold(homeState = homeState, onItemClick = {})
+        HomeScaffold(homeState = homeState, onItemClick = {}, onImportClick = {})
     }
 }
