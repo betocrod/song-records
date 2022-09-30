@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.betocrod.features.home.impl"
+    namespace = "com.betocrod.domains.audios.impl"
 
     buildFeatures {
         compose = true
@@ -21,19 +21,16 @@ android {
 
 dependencies {
 
-    implementation(projects.common.designSystem)
-    implementation(projects.common.navigation)
-
     implementation(projects.domains.audios.api)
 
-    implementation(projects.features.home.api)
-    implementation(projects.features.song.api)
-
-    composeLibraries()
     hilt()
 
     implementation(Dependencies.composeCoil)
     implementation(Dependencies.hiltCompose)
+
+    implementation(Dependencies.roomRuntime)
+    implementation(Dependencies.roomKtx)
+    kapt(Dependencies.roomCompiler)
 
     unitTestLibraries()
 }

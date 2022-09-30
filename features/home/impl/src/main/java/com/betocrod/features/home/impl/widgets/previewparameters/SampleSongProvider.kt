@@ -1,7 +1,7 @@
 package com.betocrod.features.home.impl.widgets.previewparameters
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.betocrod.features.home.impl.domain.models.Song
+import com.betocrod.features.audios.api.models.Song
 
 class SampleSongProvider : PreviewParameterProvider<Song> {
     override val values: Sequence<Song>
@@ -20,9 +20,11 @@ class SampleSongListProvider : PreviewParameterProvider<List<Song>> {
 
 internal fun getSongList() = (1..10).map {
     Song(
-        name = "Song name #$it",
-        image = "https://www.imageurl.com",
+        id = 0,
+        title = "Song name #$it",
+        filePath = "filepath",
         artist = "Artist #$it",
-        year = 2001
+        year = "2001",
+        image = null
     )
 }

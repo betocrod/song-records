@@ -20,6 +20,12 @@ object Dependencies {
     // DI
     const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
     const val hiltCompiler = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+    const val hiltCompose =  "androidx.hilt:hilt-navigation-compose:${Versions.hiltComposeNavigation}"
+
+    //Room
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
 
     // Coil
     const val composeCoil = "io.coil-kt:coil-compose:${Versions.coil}"
@@ -28,12 +34,16 @@ object Dependencies {
     const val material3 = "androidx.compose.material3:material3:${Versions.material3}"
 
     // Test
-    private const val junit = "junit:junit:${Versions.junit}"
+    const val junit = "junit:junit:${Versions.junit}"
+    const val mockk = "io.mockk:mockk:${Versions.mockk}"
 
     // Android test
     private const val androidJUnit = "androidx.test.ext:junit:${Versions.androidJUnit}"
     private const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
     private const val composeJUnit = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
+
+    // Coroutines
+    const val coroutines =  "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
     val androidTestLibraries = arrayListOf<String>().apply {
         add(androidJUnit)
@@ -44,6 +54,11 @@ object Dependencies {
     val testLibraries = arrayListOf<String>().apply {
         add(junit)
     }
+}
+
+fun DependencyHandler.unitTestLibraries() {
+    testImplementation(Dependencies.junit)
+    testImplementation(Dependencies.mockk)
 }
 
 fun DependencyHandler.composeLibraries(withPreview: Boolean = true) {
@@ -90,4 +105,8 @@ fun DependencyHandler.testImplementation(list: List<String>) {
     list.forEach { dependency ->
         add("testImplementation", dependency)
     }
+}
+
+fun DependencyHandler.testImplementation(dependency: String) {
+    add("testImplementation", dependency)
 }

@@ -15,8 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.SongRecordsTheme
+import com.betocrod.features.audios.api.models.Song
 import com.betocrod.features.home.impl.R
-import com.betocrod.features.home.impl.domain.models.Song
 import com.betocrod.features.home.impl.widgets.previewparameters.SampleSongListProvider
 
 @Composable
@@ -66,7 +66,8 @@ fun EmptyListPlaceHolder(modifier: Modifier) {
     Box(modifier = modifier.background(MaterialTheme.colorScheme.background)) {
         Text(
             modifier = Modifier.align(Alignment.Center),
-            text = stringResource(R.string.feature_home_no_songs_placeholder)
+            text = stringResource(R.string.feature_home_no_songs_placeholder),
+            color = MaterialTheme.colorScheme.onBackground
         )
     }
 }

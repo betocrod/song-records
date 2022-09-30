@@ -1,25 +1,29 @@
 package com.betocrod.features.home.impl.widgets
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.betocrod.designsystem.DSDrawable
-import com.betocrod.features.home.impl.domain.models.Song
-import com.betocrod.features.home.impl.widgets.previewparameters.SampleSongProvider
 import com.betocrod.designsystem.SongRecordsTheme
+import com.betocrod.features.audios.api.models.Song
+import com.betocrod.features.home.impl.widgets.previewparameters.SampleSongProvider
 
 @Composable
-fun SongItemWidget(song: Song, modifier: Modifier = Modifier) {
+fun SongItemWidget(
+    song: Song,
+    modifier: Modifier = Modifier
+) {
     Card(modifier) {
         Row(
             modifier = Modifier
@@ -27,27 +31,33 @@ fun SongItemWidget(song: Song, modifier: Modifier = Modifier) {
                 .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            AsyncImage(
-                modifier = Modifier.size(64.dp),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(song.image)
-                    .error(DSDrawable.ic_image)
-                    .crossfade(true)
-                    .build(),
-                placeholder = painterResource(id = DSDrawable.ic_image),
-                contentDescription = null
-            )
+            SongImageWidget(song = song, modifier = Modifier.size(64.dp))
             Spacer(modifier = Modifier.size(8.dp))
             Column(
                 modifier = Modifier.weight(1f),
             ) {
                 Text(
-                    text = song.name,
-                    modifier = Modifier.fillMaxWidth()
+                    text = song.title,
+                    modifier = Modifier.fillMaxWidth(),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.labelLarge
                 )
-                SongDescription(
-                    song = song,
-                    modifier = Modifier.fillMaxWidth()
+                Spacer(modifier = Modifier.size(4.dp))
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = song.artist,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Spacer(modifier = Modifier.size(4.dp))
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = song.year,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
         }
@@ -55,20 +65,31 @@ fun SongItemWidget(song: Song, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun SongDescription(song: Song, modifier: Modifier = Modifier) {
-    Text(
-        modifier = modifier,
-        text = StringBuilder().apply {
-            append(song.artist)
-            append(" - ")
-            append(song.year)
-        }.toString()
-    )
+private fun SongImageWidget(song: Song, modifier: Modifier = Modifier) {
+    val imageBitmap = song.image?.asImageBitmap()
+    if (imageBitmap != null) {
+        Image(
+            modifier = modifier,
+            bitmap = imageBitmap,
+            contentDescription = null
+        )
+    } else {
+        Image(
+            modifier = modifier,
+            painter = painterResource(id = DSDrawable.ic_image),
+            contentDescription = null
+        )
+    }
 }
 
 @Preview("Song Item Widget")
 @Composable
-internal fun PreviewSongItemWidget(@PreviewParameter(SampleSongProvider::class, 1) song: Song) {
+internal fun PreviewSongItemWidget(
+    @PreviewParameter(
+        SampleSongProvider::class,
+        1
+    ) song: Song
+) {
     SongRecordsTheme {
         SongItemWidget(song = song)
     }
