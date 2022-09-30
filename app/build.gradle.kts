@@ -58,6 +58,8 @@ dependencies {
     implementation(projects.common.designSystem)
     implementation(projects.common.navigation)
 
+    implementation(projects.domains.audios.wiring)
+
     implementation(projects.features.main.wiring)
     implementation(projects.features.home.wiring)
     implementation(projects.features.song.wiring)
