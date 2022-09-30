@@ -14,4 +14,7 @@ interface SongDao {
 
     @Query("SELECT * FROM SongEntity")
     fun findAll(): Flow<List<SongEntity>>
+
+    @Query("SELECT * FROM SongEntity where id = :songId")
+    suspend fun find(songId: String): SongEntity
 }
