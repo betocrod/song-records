@@ -1,4 +1,4 @@
-package com.betocrod.features.song.impl
+package com.betocrod.features.song.impl.widgets
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,8 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
+import com.betocrod.features.song.impl.R
 import com.betocrod.features.song.impl.models.SongState
-import com.betocrod.features.song.impl.widgets.SongContent
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongStateProvider
 
 @OptIn(ExperimentalMaterial3Api::class)

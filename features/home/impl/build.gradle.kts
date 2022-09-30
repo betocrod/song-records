@@ -32,7 +32,6 @@ dependencies {
     composeLibraries()
     hilt()
 
-    implementation(Dependencies.composeCoil)
     implementation(Dependencies.hiltCompose)
 
     unitTestLibraries()

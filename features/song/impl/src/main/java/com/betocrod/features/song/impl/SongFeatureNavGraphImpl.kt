@@ -8,7 +8,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.betocrod.features.recorder.api.RecorderFeatureNavGraph
 import com.betocrod.features.song.api.SongFeatureNavGraph
-import com.betocrod.features.song.impl.widgets.previewparameters.getSongData
 import javax.inject.Inject
 
 class SongFeatureNavGraphImpl @Inject constructor(
@@ -16,8 +15,6 @@ class SongFeatureNavGraphImpl @Inject constructor(
 ) : SongFeatureNavGraph {
 
     private val route = "song"
-
-    private val paramSongId = "songId"
 
     override fun route(songId: Int) = "$route/$songId"
 
@@ -27,20 +24,17 @@ class SongFeatureNavGraphImpl @Inject constructor(
         modifier: Modifier
     ) {
         navGraphBuilder.composable(
-            route = "$route/{$paramSongId}",
+            route = "$route/{$PARAM_SONG_ID}",
             arguments = listOf(
-                navArgument(paramSongId) {
+                navArgument(PARAM_SONG_ID) {
                     type = NavType.StringType
                     nullable = false
                 }
             )
         ) {
-            SongScaffold(
-                songState = getSongData(),
+            SongScreen(
                 onBackClick = { navController.popBackStack() },
-                onRecordClick = {
-                    navigateToRecorderScreen(navController)
-                }
+                onRecordClick = { navigateToRecorderScreen(navController) }
             )
         }
     }
@@ -48,5 +42,9 @@ class SongFeatureNavGraphImpl @Inject constructor(
     private fun navigateToRecorderScreen(navController: NavHostController) {
         val route = recorderFeatureNavGraph.route("songId")
         navController.navigate(route)
+    }
+
+    companion object {
+        internal const val PARAM_SONG_ID = "songId"
     }
 }

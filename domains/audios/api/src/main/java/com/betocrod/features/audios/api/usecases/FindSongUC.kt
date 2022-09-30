@@ -4,5 +4,5 @@ import com.betocrod.features.audios.api.models.Song
 
 interface FindSongUC {
 
-    suspend fun invoke(songId: String): Song
+    suspend operator fun invoke(songId: String): Song
 }
