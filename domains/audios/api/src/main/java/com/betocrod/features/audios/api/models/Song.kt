@@ -1,8 +1,12 @@
 package com.betocrod.features.audios.api.models
 
+import android.graphics.Bitmap
+
 data class Song(
-    val name: String,
-    val image: String,
+    val id: Int,
+    val title: String,
     val artist: String,
-    val year: Int
+    val year: String,
+    val filePath: String,
+    val image: Bitmap?
 )

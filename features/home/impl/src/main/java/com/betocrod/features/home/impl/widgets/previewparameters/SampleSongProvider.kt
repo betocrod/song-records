@@ -20,9 +20,11 @@ class SampleSongListProvider : PreviewParameterProvider<List<Song>> {
 
 internal fun getSongList() = (1..10).map {
     Song(
-        name = "Song name #$it",
-        image = "https://www.imageurl.com",
+        id = 0,
+        title = "Song name #$it",
+        filePath = "filepath",
         artist = "Artist #$it",
-        year = 2001
+        year = "2001",
+        image = null
     )
 }
