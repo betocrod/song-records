@@ -3,7 +3,7 @@ package com.betocrod.features.home.impl
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.betocrod.features.home.impl.domain.usecase.ImportAudioUC
+import com.betocrod.features.audios.api.usecases.ImportAudioUC
 import com.betocrod.features.home.impl.model.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler

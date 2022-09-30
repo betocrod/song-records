@@ -1,8 +1,8 @@
 package com.betocrod.features.home.impl.domain.usecase
 
 import android.net.Uri
-import com.betocrod.features.home.impl.domain.proxy.ContentResolverProxy
-import com.betocrod.features.home.impl.domain.repository.AudioRepository
+import com.betocrod.features.audios.impl.proxy.ContentResolverProxy
+import com.betocrod.features.audios.impl.repository.AudioRepository
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -16,18 +16,21 @@ import java.io.File
 class ImportAudioUCTest {
 
     @MockK
-    lateinit var contentResolverProxy: ContentResolverProxy
+    lateinit var contentResolverProxy: com.betocrod.features.audios.impl.proxy.ContentResolverProxy
 
     @MockK
-    lateinit var audioRepository: AudioRepository
+    lateinit var audioRepository: com.betocrod.features.audios.impl.repository.AudioRepository
 
     @MockK
-    lateinit var importAudioUC: ImportAudioUC
+    lateinit var importAudioUC: com.betocrod.features.audios.impl.usecase.ImportAudioUC
 
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxed = true, relaxUnitFun = true)
-        importAudioUC = ImportAudioUC(audioRepository, contentResolverProxy)
+        importAudioUC = com.betocrod.features.audios.impl.usecase.ImportAudioUC(
+            audioRepository,
+            contentResolverProxy
+        )
     }
 
     @Test

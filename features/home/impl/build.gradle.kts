@@ -24,6 +24,8 @@ dependencies {
     implementation(projects.common.designSystem)
     implementation(projects.common.navigation)
 
+    implementation(projects.domains.audios.api)
+
     implementation(projects.features.home.api)
     implementation(projects.features.song.api)
 

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.features.home.impl.R
-import com.betocrod.features.home.impl.domain.models.Song
+import com.betocrod.features.audios.api.models.Song
 import com.betocrod.features.home.impl.model.HomeState
 import com.betocrod.features.home.impl.widgets.previewparameters.SampleHomeStateProvider
 

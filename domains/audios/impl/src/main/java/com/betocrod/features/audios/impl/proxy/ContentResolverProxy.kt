@@ -1,4 +1,4 @@
-package com.betocrod.features.home.impl.domain.proxy
+package com.betocrod.features.audios.impl.proxy
 
 import android.content.Context
 import android.database.Cursor

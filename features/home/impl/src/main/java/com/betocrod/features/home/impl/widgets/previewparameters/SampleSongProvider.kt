@@ -1,7 +1,7 @@
 package com.betocrod.features.home.impl.widgets.previewparameters
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.betocrod.features.home.impl.domain.models.Song
+import com.betocrod.features.audios.api.models.Song
 
 class SampleSongProvider : PreviewParameterProvider<Song> {
     override val values: Sequence<Song>

@@ -1,4 +1,4 @@
-package com.betocrod.features.home.impl.domain.models
+package com.betocrod.features.audios.api.models
 
 data class Song(
     val name: String,

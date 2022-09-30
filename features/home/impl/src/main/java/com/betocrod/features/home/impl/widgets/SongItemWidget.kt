@@ -14,12 +14,15 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.betocrod.designsystem.DSDrawable
-import com.betocrod.features.home.impl.domain.models.Song
-import com.betocrod.features.home.impl.widgets.previewparameters.SampleSongProvider
 import com.betocrod.designsystem.SongRecordsTheme
+import com.betocrod.features.audios.api.models.Song
+import com.betocrod.features.home.impl.widgets.previewparameters.SampleSongProvider
 
 @Composable
-fun SongItemWidget(song: Song, modifier: Modifier = Modifier) {
+fun SongItemWidget(
+    song: Song,
+    modifier: Modifier = Modifier
+) {
     Card(modifier) {
         Row(
             modifier = Modifier
@@ -55,7 +58,10 @@ fun SongItemWidget(song: Song, modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun SongDescription(song: Song, modifier: Modifier = Modifier) {
+private fun SongDescription(
+    song: Song,
+    modifier: Modifier = Modifier
+) {
     Text(
         modifier = modifier,
         text = StringBuilder().apply {
@@ -68,7 +74,12 @@ private fun SongDescription(song: Song, modifier: Modifier = Modifier) {
 
 @Preview("Song Item Widget")
 @Composable
-internal fun PreviewSongItemWidget(@PreviewParameter(SampleSongProvider::class, 1) song: Song) {
+internal fun PreviewSongItemWidget(
+    @PreviewParameter(
+        SampleSongProvider::class,
+        1
+    ) song: Song
+) {
     SongRecordsTheme {
         SongItemWidget(song = song)
     }

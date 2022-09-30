@@ -1,6 +1,7 @@
 package com.betocrod.features.home.impl.model
 
-import com.betocrod.features.home.impl.domain.models.Song
+import com.betocrod.features.audios.api.models.Song
+
 
 sealed class HomeState {
 
