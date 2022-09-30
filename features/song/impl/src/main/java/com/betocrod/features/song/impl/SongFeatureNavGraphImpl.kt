@@ -19,7 +19,7 @@ class SongFeatureNavGraphImpl @Inject constructor(
 
     private val paramSongId = "songId"
 
-    override fun route(songId: String) = "$route/$songId"
+    override fun route(songId: Int) = "$route/$songId"
 
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,

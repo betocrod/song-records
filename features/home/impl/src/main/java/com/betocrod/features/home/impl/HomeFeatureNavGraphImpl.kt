@@ -22,14 +22,14 @@ class HomeFeatureNavGraphImpl @Inject constructor(
     ) {
         navGraphBuilder.composable(homeRoute()) {
             HomeScreen(
-                onItemClick = { navController.navigateToSongScreen() },
+                onItemClick = { navController.navigateToSongScreen(it.id) },
                 modifier = Modifier.fillMaxSize()
             )
         }
     }
 
-    private fun NavHostController.navigateToSongScreen() {
-        val route = songFeatureNavGraph.route("songId")
+    private fun NavHostController.navigateToSongScreen(songId: Int) {
+        val route = songFeatureNavGraph.route(songId)
         navigate(route)
     }
 }

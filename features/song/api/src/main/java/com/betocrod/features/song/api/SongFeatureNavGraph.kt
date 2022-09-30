@@ -4,5 +4,5 @@ import com.betocrod.common.navigation.FeatureNavGraph
 
 interface SongFeatureNavGraph : FeatureNavGraph {
 
-    fun route(songId: String): String
+    fun route(songId: Int): String
 }
