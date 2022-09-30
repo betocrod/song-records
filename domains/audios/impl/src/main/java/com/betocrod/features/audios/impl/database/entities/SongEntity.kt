@@ -1,9 +1,10 @@
 package com.betocrod.features.audios.impl.database.entities
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
 data class SongEntity(
-    val id: String,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val filePath: String
 )

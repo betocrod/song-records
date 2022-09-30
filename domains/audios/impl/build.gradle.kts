@@ -29,6 +29,7 @@ dependencies {
     implementation(Dependencies.hiltCompose)
 
     implementation(Dependencies.roomRuntime)
+    implementation(Dependencies.roomKtx)
     kapt(Dependencies.roomCompiler)
 
     unitTestLibraries()
