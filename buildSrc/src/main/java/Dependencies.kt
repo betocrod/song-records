@@ -42,6 +42,9 @@ object Dependencies {
     private const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoCore}"
     private const val composeJUnit = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
 
+    // Coroutines
+    const val coroutines =  "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+
     val androidTestLibraries = arrayListOf<String>().apply {
         add(androidJUnit)
         add(espresso)

@@ -13,5 +13,5 @@ interface SongDao {
     suspend fun save(songEntity: SongEntity)
 
     @Query("SELECT * FROM SongEntity")
-    fun findAll(): Flow<SongEntity>
+    fun findAll(): Flow<List<SongEntity>>
 }

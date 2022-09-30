@@ -7,4 +7,5 @@ sealed class HomeState {
 
     class SongsLoaded(val songs: List<Song>) : HomeState()
     object Error : HomeState()
+    object Loading : HomeState()
 }

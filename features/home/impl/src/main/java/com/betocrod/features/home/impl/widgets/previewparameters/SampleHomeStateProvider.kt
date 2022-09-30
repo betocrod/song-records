@@ -7,6 +7,7 @@ class SampleHomeStateProvider : PreviewParameterProvider<HomeState> {
     override val values: Sequence<HomeState>
         get() = sequenceOf(
             HomeState.SongsLoaded(getSongList()),
-            HomeState.Error
+            HomeState.Error,
+            HomeState.Loading
         )
 }

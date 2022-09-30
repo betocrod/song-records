@@ -3,6 +3,8 @@ package com.betocrod.features.home.impl
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.betocrod.features.audios.api.models.Song
@@ -18,10 +20,11 @@ fun HomeScreen(
         rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) {
             it?.let { viewModel.importAudio(it) }
         }
+    val state by viewModel.state.collectAsState()
     HomeScaffold(
         modifier = modifier,
         onItemClick = onItemClick,
-        homeState = viewModel.state,
+        homeState = state,
         onImportClick = { launcher.launch(AUDIO_MIME_TYPE) }
     )
 }
