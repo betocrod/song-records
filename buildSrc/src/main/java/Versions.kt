@@ -6,6 +6,8 @@ object Versions {
 
     const val appCompat = "1.5.1"
 
+    const val room = "2.4.3"
+
     const val activityCompose = "1.5.1"
     const val compose = "1.2.1"
     const val composeNavigation = "2.5.2"
