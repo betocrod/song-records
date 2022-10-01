@@ -3,8 +3,6 @@ package com.betocrod.features.song.impl.widgets
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,8 +18,6 @@ import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.audios.api.models.Song
-import com.betocrod.features.song.impl.models.PlayerState
-import com.betocrod.features.song.impl.widgets.compositionlocal.LocalPlayerState
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongProvider
 
 @Composable
@@ -46,36 +42,12 @@ fun SongBox(
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.size(8.dp))
-            PlayMediaButton(onPlayClick = onPlayClick, onPauseClick = onPauseClick, song = song)
+            PlayMediaButton(
+                onPlayClick = onPlayClick,
+                onPauseClick = onPauseClick,
+                mediaData = song.mediaData
+            )
         }
-    }
-}
-
-@Composable
-private fun PlayMediaButton(
-    onPlayClick: (MediaData) -> Unit,
-    onPauseClick: (MediaData) -> Unit,
-    song: Song
-) {
-    val current = (LocalPlayerState.current as? PlayerState.Playing)?.mediaData
-    IconButton(
-        onClick = {
-            when (current) {
-                song.mediaData -> onPauseClick(current)
-                else -> onPlayClick(song.mediaData)
-            }
-        }
-    ) {
-        val iconRes = if (current != song.mediaData) {
-            DSDrawable.ic_play_circle
-        } else {
-            DSDrawable.ic_pause_circle
-        }
-        Icon(
-            modifier = Modifier.size(48.dp),
-            painter = painterResource(id = iconRes),
-            contentDescription = null
-        )
     }
 }
 

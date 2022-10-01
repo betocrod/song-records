@@ -1,19 +1,24 @@
 package com.betocrod.features.song.impl.widgets
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandIn
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.song.impl.R
+import com.betocrod.features.song.impl.models.PlayerState
 import com.betocrod.features.song.impl.models.SongState
+import com.betocrod.features.song.impl.widgets.compositionlocal.LocalPlayerState
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongStateProvider
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,11 +53,44 @@ fun SongScaffold(
                 onPauseClick = onPauseClick,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = it.calculateTopPadding())
+                    .padding(it)
             )
         },
         floatingActionButton = {
             RecordButton(onClick = { onRecordClick() })
+        },
+        bottomBar = {
+            AnimatedVisibility(
+                visible = LocalPlayerState.current != PlayerState.None,
+                enter = expandIn(expandFrom = Alignment.BottomCenter)
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Divider()
+                    Slider(
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        value = 0f,
+                        onValueChange = {},
+                        thumb = {}
+                    )
+                    when (val state = LocalPlayerState.current) {
+                        PlayerState.None -> Unit
+                        is PlayerState.Paused -> PlayMediaButton(
+                            onPlayClick = onPlayClick,
+                            onPauseClick = onPauseClick,
+                            mediaData = state.mediaData
+                        )
+                        is PlayerState.Playing -> PlayMediaButton(
+                            onPlayClick = onPlayClick,
+                            onPauseClick = onPauseClick,
+                            mediaData = state.mediaData
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(16.dp))
+                }
+            }
         }
     )
 }
