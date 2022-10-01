@@ -3,7 +3,10 @@ package com.betocrod.features.song.impl.widgets
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -76,7 +79,6 @@ private fun PlayMediaButton(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SongDescription(song: Song, modifier: Modifier = Modifier) {
     Column(modifier) {
@@ -102,12 +104,6 @@ private fun SongDescription(song: Song, modifier: Modifier = Modifier) {
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.bodySmall
-        )
-        Slider(
-            value = 0f,
-            enabled = false,
-            onValueChange = {},
-            thumb = {},
         )
     }
 }
