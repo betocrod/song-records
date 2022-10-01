@@ -25,10 +25,12 @@ import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongState
 @Composable
 fun SongScaffold(
     songState: SongState,
+    playerProgress: Float,
     onBackClick: () -> Unit,
     onRecordClick: () -> Unit,
     onPlayClick: (MediaData) -> Unit,
     onPauseClick: (MediaData) -> Unit,
+    onProgressChange: (Float) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -64,35 +66,51 @@ fun SongScaffold(
                 visible = LocalPlayerState.current != PlayerState.None,
                 enter = expandIn(expandFrom = Alignment.BottomCenter)
             ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Divider()
-                    Slider(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        value = 0f,
-                        onValueChange = {},
-                        thumb = {}
-                    )
-                    when (val state = LocalPlayerState.current) {
-                        PlayerState.None -> Unit
-                        is PlayerState.Paused -> PlayMediaButton(
-                            onPlayClick = onPlayClick,
-                            onPauseClick = onPauseClick,
-                            mediaData = state.mediaData
-                        )
-                        is PlayerState.Playing -> PlayMediaButton(
-                            onPlayClick = onPlayClick,
-                            onPauseClick = onPauseClick,
-                            mediaData = state.mediaData
-                        )
-                    }
-                    Spacer(modifier = Modifier.size(16.dp))
-                }
+                BottomBar(
+                    playerProgress = playerProgress,
+                    onProgressChange = onProgressChange,
+                    onPlayClick = onPlayClick,
+                    onPauseClick = onPauseClick,
+                    Modifier.fillMaxWidth()
+                )
             }
         }
     )
+}
+
+@Composable
+private fun BottomBar(
+    playerProgress: Float,
+    onProgressChange: (Float) -> Unit,
+    onPlayClick: (MediaData) -> Unit,
+    onPauseClick: (MediaData) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Divider()
+        Slider(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            value = playerProgress,
+            onValueChange = onProgressChange
+        )
+        when (val state = LocalPlayerState.current) {
+            PlayerState.None -> Unit
+            is PlayerState.Paused -> PlayMediaButton(
+                onPlayClick = onPlayClick,
+                onPauseClick = onPauseClick,
+                mediaData = state.mediaData
+            )
+            is PlayerState.Playing -> PlayMediaButton(
+                onPlayClick = onPlayClick,
+                onPauseClick = onPauseClick,
+                mediaData = state.mediaData
+            )
+        }
+        Spacer(modifier = Modifier.size(16.dp))
+    }
 }
 
 @Composable
@@ -114,10 +132,12 @@ private fun PreviewSongScaffold(@PreviewParameter(SampleSongStateProvider::class
     SongRecordsTheme {
         SongScaffold(
             songState = songState,
+            playerProgress = 0f,
             onBackClick = {},
             onRecordClick = {},
             onPlayClick = {},
-            onPauseClick = {}
+            onPauseClick = {},
+            onProgressChange = {}
         )
     }
 }
