@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import com.betocrod.domains.audios.impl.R
+import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.audios.api.models.Song
 import com.betocrod.features.audios.impl.database.daos.SongDao
 import com.betocrod.features.audios.impl.database.entities.SongEntity
@@ -47,12 +48,12 @@ class AudioRepository @Inject constructor(
         Song(
             id = it.id,
             title = getTitle(it),
-            filePath = it.filePath,
             artist = extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
                 ?: unknown(),
             year = extractMetadata(MediaMetadataRetriever.METADATA_KEY_YEAR)
                 ?: unknown(),
-            image = getBitmap()
+            image = getBitmap(),
+            mediaData = MediaData(it.filePath)
         )
 
     private fun MediaMetadataRetriever.getTitle(entity: SongEntity): String {

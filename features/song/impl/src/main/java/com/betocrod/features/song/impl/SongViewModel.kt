@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.betocrod.features.audios.api.models.Song
 import com.betocrod.features.audios.api.usecases.FindSongUC
-import com.betocrod.features.song.impl.models.MediaData
 import com.betocrod.features.song.impl.models.PlayingState
 import com.betocrod.features.song.impl.models.SongState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,7 +36,7 @@ class SongViewModel @Inject constructor(
             songState = SongState.Error
         }) {
             songState = try {
-                SongState.SongData(MediaData(findSongUC(songId)), emptyList())
+                SongState.SongData(findSongUC(songId), emptyList())
             } catch (ex: CancellationException) {
                 SongState.Error
             }
@@ -46,7 +45,7 @@ class SongViewModel @Inject constructor(
 
     fun playSong(song: Song) = viewModelScope
         .launch(CoroutineExceptionHandler { _, _ -> playingState = PlayingState.None }) {
-           
+
         }
 
 }

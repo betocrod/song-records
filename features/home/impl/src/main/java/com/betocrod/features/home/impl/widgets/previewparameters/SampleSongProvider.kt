@@ -1,6 +1,7 @@
 package com.betocrod.features.home.impl.widgets.previewparameters
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.audios.api.models.Song
 
 class SampleSongProvider : PreviewParameterProvider<Song> {
@@ -22,9 +23,9 @@ internal fun getSongList() = (1..10).map {
     Song(
         id = 0,
         title = "Song name #$it",
-        filePath = "filepath",
         artist = "Artist #$it",
         year = "2001",
-        image = null
+        image = null,
+        mediaData = MediaData("filePath")
     )
 }
