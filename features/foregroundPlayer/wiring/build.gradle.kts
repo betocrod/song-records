@@ -7,12 +7,14 @@ plugins {
 }
 
 android {
-    namespace = "com.betocrod.songrecords.features.song.wiring"
+    namespace = "com.betocrod.songrecords.features.foregroundplayer.wiring"
 }
 
 dependencies {
     api(projects.features.foregroundPlayer.api)
     implementation(projects.features.foregroundPlayer.impl)
+
+    implementation(Dependencies.exoplayerCore)
 
     hilt()
 }

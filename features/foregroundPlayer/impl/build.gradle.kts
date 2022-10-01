@@ -18,5 +18,6 @@ dependencies {
 
     hilt()
 
-    implementation(Dependencies.exoplayer)
+    implementation(Dependencies.exoplayerCore)
+    implementation(Dependencies.exoplayerUi)
 }

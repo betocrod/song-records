@@ -32,6 +32,6 @@ dependencies {
     composeLibraries()
     hilt()
 
-    implementation(Dependencies.exoplayer)
+    implementation(Dependencies.exoplayerCore)
     implementation(Dependencies.hiltCompose)
 }

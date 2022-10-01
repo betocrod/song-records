@@ -69,6 +69,7 @@ dependencies {
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.lifecycleRuntimeKtx)
     implementation(Dependencies.activityCompose)
+    implementation(Dependencies.exoplayerCore)
 
     composeLibraries()
     hilt()

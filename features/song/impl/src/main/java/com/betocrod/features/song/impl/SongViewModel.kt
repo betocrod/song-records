@@ -10,6 +10,7 @@ import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.audios.api.usecases.FindSongUC
 import com.betocrod.features.song.impl.models.PlayerState
 import com.betocrod.features.song.impl.models.SongState
+import com.google.android.exoplayer2.ExoPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -19,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SongViewModel @Inject constructor(
     private val findSongUC: FindSongUC,
+    val player: ExoPlayer,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 

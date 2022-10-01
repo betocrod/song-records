@@ -1,7 +1,6 @@
 package com.betocrod.features.song.impl
 
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.betocrod.features.song.impl.models.PlayerState
 import com.betocrod.features.song.impl.widgets.SongScaffold
@@ -17,9 +16,7 @@ fun SongScreen(
     onBackClick: () -> Unit,
     onRecordClick: () -> Unit
 ) {
-    val context = LocalContext.current
-    val exoplayer = remember { ExoPlayer.Builder(context).build() }
-    DisposableEffect(exoplayer) { onDispose { exoplayer.release() } }
+    val exoplayer = viewModel.player
 
     LoopEffect(durationInMillis = TIME_TO_REFRESH_TIME_PROGRESS) {
         viewModel.updateProgress(exoplayer.currentPosition, exoplayer.duration)
