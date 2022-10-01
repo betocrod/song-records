@@ -25,7 +25,7 @@ fun SongScreen(
     LaunchedEffect(viewModel.playerState) {
         exoplayer.updateExoplayer(viewModel.playerState)
     }
-    
+
     CompositionLocalProvider(LocalPlayerState provides viewModel.playerState) {
         SongScaffold(
             songState = viewModel.songState,

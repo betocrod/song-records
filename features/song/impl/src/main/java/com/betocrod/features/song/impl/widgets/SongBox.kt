@@ -76,6 +76,7 @@ private fun PlayMediaButton(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SongDescription(song: Song, modifier: Modifier = Modifier) {
     Column(modifier) {
@@ -102,9 +103,11 @@ private fun SongDescription(song: Song, modifier: Modifier = Modifier) {
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.bodySmall
         )
-        Spacer(modifier = Modifier.size(8.dp))
-        LinearProgressIndicator(
-            modifier = Modifier.fillMaxWidth()
+        Slider(
+            value = 0f,
+            enabled = false,
+            onValueChange = {},
+            thumb = {},
         )
     }
 }
