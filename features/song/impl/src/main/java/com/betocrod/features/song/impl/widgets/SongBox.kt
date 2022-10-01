@@ -19,7 +19,11 @@ import com.betocrod.features.audios.api.models.Song
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongProvider
 
 @Composable
-fun SongBox(song: Song, modifier: Modifier) {
+fun SongBox(
+    song: Song,
+    onPlaySongClick: (Song) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Box(modifier) {
         Row(
             modifier = Modifier
@@ -36,7 +40,7 @@ fun SongBox(song: Song, modifier: Modifier) {
             )
             Spacer(modifier = Modifier.size(8.dp))
             IconButton(
-                onClick = { TODO("Not yet implemented") }
+                onClick = { onPlaySongClick(song) }
             ) {
                 Icon(
                     painter = painterResource(id = DSDrawable.ic_play_circle),
@@ -84,7 +88,7 @@ private fun SongDescription(song: Song, modifier: Modifier = Modifier) {
 @Composable
 fun PreviewSongCard(@PreviewParameter(SampleSongProvider::class, 1) song: Song) {
     SongRecordsTheme {
-        SongBox(modifier = Modifier.fillMaxWidth(), song = song)
+        SongBox(modifier = Modifier.fillMaxWidth(), song = song, onPlaySongClick = {})
     }
 }
 

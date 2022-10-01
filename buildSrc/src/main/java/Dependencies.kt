@@ -30,6 +30,9 @@ object Dependencies {
     // Coil
     const val composeCoil = "io.coil-kt:coil-compose:${Versions.coil}"
 
+    // Exoplayer
+    const val exoplayer = "com.google.android.exoplayer:exoplayer-core:${Versions.exoplayer}"
+
     // Material
     const val material3 = "androidx.compose.material3:material3:${Versions.material3}"
 

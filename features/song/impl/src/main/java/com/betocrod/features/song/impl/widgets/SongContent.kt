@@ -24,12 +24,19 @@ import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongState
 @Composable
 fun SongContent(
     state: SongState,
+    onPlaySongClick: (Song) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(8.dp)
 ) {
     when (state) {
         SongState.Error -> SongContentError(modifier, contentPadding)
-        is SongState.SongData -> ContentWidget(state.song, state.records, modifier, contentPadding)
+        is SongState.SongData -> ContentWidget(
+            song = state.song,
+            records = state.records,
+            onPlaySongClick = onPlaySongClick,
+            modifier = modifier,
+            contentPadding = contentPadding
+        )
         SongState.Loading -> ContentLoader(modifier)
     }
 }
@@ -51,11 +58,16 @@ fun ContentLoader(modifier: Modifier) {
 fun ContentWidget(
     song: Song,
     records: List<Record>,
+    onPlaySongClick: (Song) -> Unit,
     modifier: Modifier,
     contentPadding: PaddingValues
 ) {
     Column(modifier) {
-        SongBox(song = song, modifier = Modifier.fillMaxWidth())
+        SongBox(
+            song = song,
+            onPlaySongClick = onPlaySongClick,
+            modifier = Modifier.fillMaxWidth()
+        )
         Divider()
         RecordListWidget(
             modifier = Modifier
@@ -88,6 +100,6 @@ private fun PreviewSongContent(
     @PreviewParameter(SampleSongStateProvider::class) songState: SongState
 ) {
     SongRecordsTheme {
-        SongContent(state = songState, modifier = Modifier.fillMaxSize())
+        SongContent(state = songState, modifier = Modifier.fillMaxSize(), onPlaySongClick = {})
     }
 }

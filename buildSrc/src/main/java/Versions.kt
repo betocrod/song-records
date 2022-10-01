@@ -21,6 +21,8 @@ object Versions {
 
     const val coil = "2.2.1"
 
+    const val exoplayer = "2.18.1"
+
     const val coroutines = "1.6.4"
 
     const val junit = "4.13.2"
