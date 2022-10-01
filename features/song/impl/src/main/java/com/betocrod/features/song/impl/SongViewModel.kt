@@ -32,6 +32,9 @@ class SongViewModel @Inject constructor(
     var playerState: PlayerState by mutableStateOf(PlayerState.None)
         private set
 
+    var progress: Float by mutableStateOf(0f)
+        private set
+
     init {
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
@@ -52,6 +55,10 @@ class SongViewModel @Inject constructor(
 
     fun pause(mediaData: MediaData) {
         playerState = PlayerState.Paused(mediaData)
+    }
+
+    fun updateProgress(currentPosition: Long, duration: Long) = viewModelScope.launch {
+        progress = (currentPosition.toFloat() / duration.toFloat()).takeIf { it != 1f } ?: 0f
     }
 
 }
