@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.audios.api.usecases.FindSongUC
-import com.betocrod.features.song.impl.models.PlayingState
+import com.betocrod.features.song.impl.models.PlayerState
 import com.betocrod.features.song.impl.models.SongState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
@@ -29,7 +29,7 @@ class SongViewModel @Inject constructor(
     var songState: SongState by mutableStateOf(SongState.Loading)
         private set
 
-    var playerState: PlayingState by mutableStateOf(PlayingState.None)
+    var playerState: PlayerState by mutableStateOf(PlayerState.None)
         private set
 
     init {
@@ -46,12 +46,12 @@ class SongViewModel @Inject constructor(
     }
 
     fun play(mediaData: MediaData) = viewModelScope
-        .launch(CoroutineExceptionHandler { _, _ -> playerState = PlayingState.None }) {
-            playerState = PlayingState.Playing(mediaData)
+        .launch(CoroutineExceptionHandler { _, _ -> playerState = PlayerState.None }) {
+            playerState = PlayerState.Playing(mediaData)
         }
 
     fun pause(mediaData: MediaData) {
-        playerState = PlayingState.Paused(mediaData)
+        playerState = PlayerState.Paused(mediaData)
     }
 
 }

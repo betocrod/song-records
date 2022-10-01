@@ -3,7 +3,7 @@ package com.betocrod.features.song.impl
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.betocrod.features.song.impl.models.PlayingState
+import com.betocrod.features.song.impl.models.PlayerState
 import com.betocrod.features.song.impl.widgets.SongScaffold
 import com.betocrod.features.song.impl.widgets.compositionlocal.LocalPlayerState
 import com.google.android.exoplayer2.ExoPlayer
@@ -23,26 +23,9 @@ fun SongScreen(
     }
 
     LaunchedEffect(viewModel.playerState) {
-        when (val state = viewModel.playerState) {
-            PlayingState.None -> {
-                exoplayer.apply {
-                    stop()
-                    clearMediaItems()
-                }
-            }
-            is PlayingState.Playing -> {
-                exoplayer.apply {
-                    val item = MediaItem.fromUri(state.mediaData.filePath)
-                    exoplayer.addMediaItem(item)
-                    exoplayer.prepare()
-                    exoplayer.play()
-                }
-            }
-            is PlayingState.Paused -> {
-                exoplayer.pause()
-            }
-        }
+        exoplayer.updateExoplayer(viewModel.playerState)
     }
+    
     CompositionLocalProvider(LocalPlayerState provides viewModel.playerState) {
         SongScaffold(
             songState = viewModel.songState,
@@ -51,5 +34,21 @@ fun SongScreen(
             onPlayClick = { viewModel.play(it) },
             onPauseClick = { viewModel.pause(it) }
         )
+    }
+}
+
+private fun ExoPlayer.updateExoplayer(state: PlayerState) {
+    when (state) {
+        PlayerState.None -> {
+            stop()
+            clearMediaItems()
+        }
+        is PlayerState.Playing -> {
+            val item = MediaItem.fromUri(state.mediaData.filePath)
+            addMediaItem(item)
+            prepare()
+            play()
+        }
+        is PlayerState.Paused -> pause()
     }
 }

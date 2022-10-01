@@ -17,7 +17,7 @@ import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.audios.api.models.Song
-import com.betocrod.features.song.impl.models.PlayingState
+import com.betocrod.features.song.impl.models.PlayerState
 import com.betocrod.features.song.impl.widgets.compositionlocal.LocalPlayerState
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongProvider
 
@@ -54,7 +54,7 @@ private fun PlayMediaButton(
     onPauseClick: (MediaData) -> Unit,
     song: Song
 ) {
-    val current = (LocalPlayerState.current as? PlayingState.Playing)?.mediaData
+    val current = (LocalPlayerState.current as? PlayerState.Playing)?.mediaData
     IconButton(
         onClick = {
             when (current) {
