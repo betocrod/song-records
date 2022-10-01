@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.SongRecordsTheme
+import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.audios.api.models.Song
 import com.betocrod.features.song.impl.R
 import com.betocrod.features.song.impl.domain.models.Record
@@ -24,7 +25,8 @@ import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongState
 @Composable
 fun SongContent(
     state: SongState,
-    onPlaySongClick: (Song) -> Unit,
+    onPlayClick: (MediaData) -> Unit,
+    onPauseClick: (MediaData) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(8.dp)
 ) {
@@ -33,7 +35,8 @@ fun SongContent(
         is SongState.SongData -> ContentWidget(
             song = state.song,
             records = state.records,
-            onPlaySongClick = onPlaySongClick,
+            onPlayClick = onPlayClick,
+            onPauseClick = onPauseClick,
             modifier = modifier,
             contentPadding = contentPadding
         )
@@ -58,14 +61,16 @@ fun ContentLoader(modifier: Modifier) {
 fun ContentWidget(
     song: Song,
     records: List<Record>,
-    onPlaySongClick: (Song) -> Unit,
+    onPlayClick: (MediaData) -> Unit,
+    onPauseClick: (MediaData) -> Unit,
     modifier: Modifier,
     contentPadding: PaddingValues
 ) {
     Column(modifier) {
         SongBox(
             song = song,
-            onPlaySongClick = onPlaySongClick,
+            onPlayClick = onPlayClick,
+            onPauseClick = onPauseClick,
             modifier = Modifier.fillMaxWidth()
         )
         Divider()
@@ -100,6 +105,11 @@ private fun PreviewSongContent(
     @PreviewParameter(SampleSongStateProvider::class) songState: SongState
 ) {
     SongRecordsTheme {
-        SongContent(state = songState, modifier = Modifier.fillMaxSize(), onPlaySongClick = {})
+        SongContent(
+            state = songState,
+            onPlayClick = {},
+            modifier = Modifier.fillMaxSize(),
+            onPauseClick = {}
+        )
     }
 }

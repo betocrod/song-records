@@ -15,13 +15,17 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
+import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.audios.api.models.Song
+import com.betocrod.features.song.impl.models.PlayingState
+import com.betocrod.features.song.impl.widgets.compositionlocal.LocalPlayerState
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongProvider
 
 @Composable
 fun SongBox(
     song: Song,
-    onPlaySongClick: (Song) -> Unit,
+    onPlayClick: (MediaData) -> Unit,
+    onPauseClick: (MediaData) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(modifier) {
@@ -39,15 +43,36 @@ fun SongBox(
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.size(8.dp))
-            IconButton(
-                onClick = { onPlaySongClick(song) }
-            ) {
-                Icon(
-                    painter = painterResource(id = DSDrawable.ic_play_circle),
-                    contentDescription = null
-                )
+            PlayMediaButton(onPlayClick = onPlayClick, onPauseClick = onPauseClick, song = song)
+        }
+    }
+}
+
+@Composable
+private fun PlayMediaButton(
+    onPlayClick: (MediaData) -> Unit,
+    onPauseClick: (MediaData) -> Unit,
+    song: Song
+) {
+    val current = (LocalPlayerState.current as? PlayingState.Playing)?.mediaData
+    IconButton(
+        onClick = {
+            when (current) {
+                song.mediaData -> onPauseClick(current)
+                else -> onPlayClick(song.mediaData)
             }
         }
+    ) {
+        val iconRes = if (current != song.mediaData) {
+            DSDrawable.ic_play_circle
+        } else {
+            DSDrawable.ic_pause_circle
+        }
+        Icon(
+            modifier = Modifier.size(48.dp),
+            painter = painterResource(id = iconRes),
+            contentDescription = null
+        )
     }
 }
 
@@ -88,7 +113,12 @@ private fun SongDescription(song: Song, modifier: Modifier = Modifier) {
 @Composable
 fun PreviewSongCard(@PreviewParameter(SampleSongProvider::class, 1) song: Song) {
     SongRecordsTheme {
-        SongBox(modifier = Modifier.fillMaxWidth(), song = song, onPlaySongClick = {})
+        SongBox(
+            song = song,
+            onPlayClick = {},
+            onPauseClick = {},
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 

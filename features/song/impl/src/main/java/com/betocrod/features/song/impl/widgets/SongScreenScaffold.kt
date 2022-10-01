@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
-import com.betocrod.features.audios.api.models.Song
+import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.song.impl.R
 import com.betocrod.features.song.impl.models.SongState
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongStateProvider
@@ -22,7 +22,8 @@ fun SongScaffold(
     songState: SongState,
     onBackClick: () -> Unit,
     onRecordClick: () -> Unit,
-    onPlaySongClick: (Song) -> Unit,
+    onPlayClick: (MediaData) -> Unit,
+    onPauseClick: (MediaData) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -43,7 +44,8 @@ fun SongScaffold(
         content = {
             SongContent(
                 state = songState,
-                onPlaySongClick = onPlaySongClick,
+                onPlayClick = onPlayClick,
+                onPauseClick = onPauseClick,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = it.calculateTopPadding())
@@ -76,6 +78,8 @@ private fun PreviewSongScaffold(@PreviewParameter(SampleSongStateProvider::class
             songState = songState,
             onBackClick = {},
             onRecordClick = {},
-            onPlaySongClick = {})
+            onPlayClick = {},
+            onPauseClick = {}
+        )
     }
 }

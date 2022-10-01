@@ -1,13 +1,11 @@
 package com.betocrod.features.song.impl
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.betocrod.features.song.impl.models.PlayingState
 import com.betocrod.features.song.impl.widgets.SongScaffold
+import com.betocrod.features.song.impl.widgets.compositionlocal.LocalPlayerState
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 
@@ -24,8 +22,8 @@ fun SongScreen(
         onDispose { exoplayer.release() }
     }
 
-    LaunchedEffect(viewModel.playingState) {
-        when(val state = viewModel.playingState) {
+    LaunchedEffect(viewModel.playerState) {
+        when (val state = viewModel.playerState) {
             PlayingState.None -> {
                 exoplayer.apply {
                     stop()
@@ -34,7 +32,7 @@ fun SongScreen(
             }
             is PlayingState.Playing -> {
                 exoplayer.apply {
-                    val item = MediaItem.fromUri(state.filePath)
+                    val item = MediaItem.fromUri(state.mediaData.filePath)
                     exoplayer.addMediaItem(item)
                     exoplayer.prepare()
                     exoplayer.play()
@@ -45,11 +43,13 @@ fun SongScreen(
             }
         }
     }
-
-    SongScaffold(
-        songState = viewModel.songState,
-        onBackClick = onBackClick,
-        onRecordClick = onRecordClick,
-        onPlaySongClick = { viewModel.playSong(it) }
-    )
+    CompositionLocalProvider(LocalPlayerState provides viewModel.playerState) {
+        SongScaffold(
+            songState = viewModel.songState,
+            onBackClick = onBackClick,
+            onRecordClick = onRecordClick,
+            onPlayClick = { viewModel.play(it) },
+            onPauseClick = { viewModel.pause(it) }
+        )
+    }
 }
