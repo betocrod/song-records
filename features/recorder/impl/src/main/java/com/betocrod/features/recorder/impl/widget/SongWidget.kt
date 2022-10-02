@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
-import com.betocrod.features.recorder.impl.models.Song
+import com.betocrod.features.audios.api.models.Song
 import com.betocrod.features.recorder.impl.widget.previewparameters.SampleSongProvider
 
 @Composable
@@ -25,9 +25,9 @@ fun SongWidget(song: Song, modifier: Modifier = Modifier) {
             placeholder = painterResource(id = DSDrawable.ic_image),
             contentDescription = null
         )
-        Text(text = song.name)
+        Text(text = song.title)
         Text(text = song.artist)
-        Text(text = song.year.toString())
+        Text(text = song.year)
     }
 }
 

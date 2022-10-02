@@ -1,4 +1,4 @@
-package com.betocrod.features.recorder.impl
+package com.betocrod.features.recorder.impl.widget
 
 
 import androidx.compose.foundation.background
@@ -9,14 +9,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
+import com.betocrod.features.recorder.impl.R
 import com.betocrod.features.recorder.impl.models.RecorderState
-import com.betocrod.features.recorder.impl.widget.RecorderContent
 import com.betocrod.features.recorder.impl.widget.previewparameters.SampleRecorderStateProvider
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -55,10 +56,26 @@ fun RecordScreenScaffold(
                     state = state,
                     onRecordClick = onRecordClick
                 )
+                RecorderState.Loading -> ReorderLoadingContent(
+                    modifier = Modifier.fillMaxSize()
+                )
             }
 
         }
     )
+}
+
+@Composable
+fun ReorderLoadingContent(modifier: Modifier) {
+    Box(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier.align(Alignment.Center),
+            color = Color.Green
+        )
+    }
 }
 
 @Composable

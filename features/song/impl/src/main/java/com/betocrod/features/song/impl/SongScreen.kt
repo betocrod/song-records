@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 fun SongScreen(
     viewModel: SongViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
-    onRecordClick: () -> Unit,
+    onRecordClick: (Int) -> Unit,
     onPlayAudio: () -> Unit
 ) {
     val exoplayer = viewModel.player
