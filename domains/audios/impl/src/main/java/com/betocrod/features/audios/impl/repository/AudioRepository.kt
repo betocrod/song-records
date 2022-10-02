@@ -44,17 +44,27 @@ class AudioRepository @Inject constructor(
             .toList()
     }
 
-    private fun MediaMetadataRetriever.extractMetadata(it: SongEntity) =
-        Song(
+    private fun MediaMetadataRetriever.extractMetadata(it: SongEntity): Song {
+        val title = getTitle(it)
+        val bitmap = getBitmap()
+        val artist = (extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
+            ?: unknown())
+        val year = (extractMetadata(MediaMetadataRetriever.METADATA_KEY_YEAR)
+            ?: unknown())
+        return Song(
             id = it.id,
-            title = getTitle(it),
-            artist = extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
-                ?: unknown(),
-            year = extractMetadata(MediaMetadataRetriever.METADATA_KEY_YEAR)
-                ?: unknown(),
-            image = getBitmap(),
-            mediaData = MediaData(it.filePath)
+            title = title,
+            artist = artist,
+            year = year,
+            image = bitmap,
+            mediaData = MediaData(
+                filePath = it.filePath,
+                title = title,
+                content = "$artist - $year",
+                bitmap = bitmap
+            )
         )
+    }
 
     private fun MediaMetadataRetriever.getTitle(entity: SongEntity): String {
         return extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)

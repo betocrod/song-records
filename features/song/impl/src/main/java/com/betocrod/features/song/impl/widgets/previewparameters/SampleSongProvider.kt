@@ -18,6 +18,11 @@ internal fun getSongList() = (1..10).map {
         year = "2001",
         image = null,
         id = it,
-        mediaData = MediaData("filePath")
+        mediaData =  MediaData(
+            filePath = "filePath",
+            title = "Song title #$it",
+            content = null,
+            bitmap = null
+        )
     )
 }

@@ -10,6 +10,7 @@ import android.os.IBinder
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import com.betocrod.designsystem.DSDrawable
+import com.betocrod.features.foregroundplayer.api.PlayerDatasource
 import com.betocrod.features.foregroundplayer.impl.R
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.Player
@@ -26,6 +27,9 @@ class PlayerService : Service() {
 
     @Inject
     lateinit var exoPlayer: ExoPlayer
+
+    @Inject
+    lateinit var playerDataSource: PlayerDatasource
 
     private lateinit var notificationManager: PlayerNotificationManager
 
@@ -78,7 +82,7 @@ class PlayerService : Service() {
 
     private val descriptionAdapter = object : MediaDescriptionAdapter {
         override fun getCurrentContentTitle(player: Player): CharSequence {
-            return "Title"
+            return playerDataSource.currentTitle
         }
 
         override fun createCurrentContentIntent(player: Player): PendingIntent? {
@@ -86,14 +90,14 @@ class PlayerService : Service() {
         }
 
         override fun getCurrentContentText(player: Player): CharSequence? {
-            return "Content text"
+            return playerDataSource.currentContentText
         }
 
         override fun getCurrentLargeIcon(
             player: Player,
             callback: PlayerNotificationManager.BitmapCallback
         ): Bitmap? {
-            return null
+            return playerDataSource.currentBitmap
         }
 
     }
