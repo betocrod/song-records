@@ -51,8 +51,9 @@ fun RecordScreenScaffold(
                         .fillMaxSize()
                 )
                 is RecorderState.Success -> RecorderContent(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = it,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(it),
                     state = state,
                     onRecordClick = onRecordClick
                 )
