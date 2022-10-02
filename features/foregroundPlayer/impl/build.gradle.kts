@@ -14,6 +14,8 @@ android {
 
 dependencies {
 
+    implementation(projects.domains.audios.api)
+
     implementation(projects.features.foregroundPlayer.api)
 
     hilt()

@@ -6,12 +6,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.betocrod.features.foregroundplayer.api.PlayerServiceLauncher
 import com.betocrod.features.recorder.api.RecorderFeatureNavGraph
 import com.betocrod.features.song.api.SongFeatureNavGraph
 import javax.inject.Inject
 
 class SongFeatureNavGraphImpl @Inject constructor(
-    private val recorderFeatureNavGraph: RecorderFeatureNavGraph
+    private val recorderFeatureNavGraph: RecorderFeatureNavGraph,
+    private val playerServiceLauncher: PlayerServiceLauncher
 ) : SongFeatureNavGraph {
 
     private val route = "song"
@@ -34,7 +36,8 @@ class SongFeatureNavGraphImpl @Inject constructor(
         ) {
             SongScreen(
                 onBackClick = { navController.popBackStack() },
-                onRecordClick = { navigateToRecorderScreen(navController) }
+                onRecordClick = { navigateToRecorderScreen(navController) },
+                onPlayAudio = { playerServiceLauncher.start() }
             )
         }
     }

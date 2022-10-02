@@ -9,7 +9,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.features.audios.api.models.MediaData
-import com.betocrod.features.song.impl.models.PlayerState
+import com.betocrod.features.foregroundplayer.api.models.PlayerState
 import com.betocrod.features.song.impl.widgets.compositionlocal.LocalPlayerState
 
 @Composable

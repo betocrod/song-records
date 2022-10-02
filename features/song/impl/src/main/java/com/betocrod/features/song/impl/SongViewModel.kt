@@ -1,5 +1,6 @@
 package com.betocrod.features.song.impl
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -8,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.audios.api.usecases.FindSongUC
-import com.betocrod.features.song.impl.models.PlayerState
+import com.betocrod.features.foregroundplayer.api.PlayerDatasource
 import com.betocrod.features.song.impl.models.SongState
 import com.google.android.exoplayer2.ExoPlayer
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SongViewModel @Inject constructor(
     private val findSongUC: FindSongUC,
+    private val playerDatasource: PlayerDatasource,
     val player: ExoPlayer,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
@@ -31,8 +33,7 @@ class SongViewModel @Inject constructor(
     var songState: SongState by mutableStateOf(SongState.Loading)
         private set
 
-    var playerState: PlayerState by mutableStateOf(PlayerState.None)
-        private set
+    var playerState = playerDatasource.state
 
     var progress: Float by mutableStateOf(0f)
         private set
@@ -51,16 +52,20 @@ class SongViewModel @Inject constructor(
     }
 
     fun play(mediaData: MediaData) = viewModelScope
-        .launch(CoroutineExceptionHandler { _, _ -> playerState = PlayerState.None }) {
-            playerState = PlayerState.Playing(mediaData)
+        .launch(CoroutineExceptionHandler { _, ex -> Log.e(TAG, ex.stackTraceToString()) }) {
+            playerDatasource.play(mediaData)
         }
 
-    fun pause(mediaData: MediaData) {
-        playerState = PlayerState.Paused(mediaData)
-    }
+    fun pause(mediaData: MediaData) = viewModelScope
+        .launch(CoroutineExceptionHandler { _, ex -> Log.e(TAG, ex.stackTraceToString()) }) {
+            playerDatasource.pause(mediaData)
+        }
 
     fun updateProgress(currentPosition: Long, duration: Long) = viewModelScope.launch {
         progress = (currentPosition.toFloat() / duration.toFloat()).takeIf { it != 1f } ?: 0f
     }
 
+    companion object {
+        private const val TAG = "SongViewModel::class"
+    }
 }

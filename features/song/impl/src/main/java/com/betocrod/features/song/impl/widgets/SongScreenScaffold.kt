@@ -16,7 +16,7 @@ import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.features.audios.api.models.MediaData
 import com.betocrod.features.song.impl.R
-import com.betocrod.features.song.impl.models.PlayerState
+import com.betocrod.features.foregroundplayer.api.models.PlayerState
 import com.betocrod.features.song.impl.models.SongState
 import com.betocrod.features.song.impl.widgets.compositionlocal.LocalPlayerState
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongStateProvider

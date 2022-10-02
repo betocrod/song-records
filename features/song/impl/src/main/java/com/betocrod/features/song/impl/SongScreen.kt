@@ -2,7 +2,7 @@ package com.betocrod.features.song.impl
 
 import androidx.compose.runtime.*
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.betocrod.features.song.impl.models.PlayerState
+import com.betocrod.features.foregroundplayer.api.models.PlayerState
 import com.betocrod.features.song.impl.widgets.SongScaffold
 import com.betocrod.features.song.impl.widgets.compositionlocal.LocalPlayerState
 import com.google.android.exoplayer2.ExoPlayer
@@ -14,25 +14,30 @@ import kotlinx.coroutines.launch
 fun SongScreen(
     viewModel: SongViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
-    onRecordClick: () -> Unit
+    onRecordClick: () -> Unit,
+    onPlayAudio: () -> Unit
 ) {
     val exoplayer = viewModel.player
+    val playerState by viewModel.playerState.collectAsState()
 
     LoopEffect(durationInMillis = TIME_TO_REFRESH_TIME_PROGRESS) {
         viewModel.updateProgress(exoplayer.currentPosition, exoplayer.duration)
     }
 
-    LaunchedEffect(viewModel.playerState) {
-        exoplayer.updateExoplayer(viewModel.playerState)
+    LaunchedEffect(playerState) {
+        exoplayer.updateExoplayer(playerState)
     }
 
-    CompositionLocalProvider(LocalPlayerState provides viewModel.playerState) {
+    CompositionLocalProvider(LocalPlayerState provides playerState) {
         SongScaffold(
             songState = viewModel.songState,
             playerProgress = viewModel.progress,
             onBackClick = onBackClick,
             onRecordClick = onRecordClick,
-            onPlayClick = { viewModel.play(it) },
+            onPlayClick = {
+                viewModel.play(it)
+                onPlayAudio()
+            },
             onPauseClick = { viewModel.pause(it) },
             onProgressChange = { exoplayer.seekTo((exoplayer.duration.toFloat() * it).toLong()) }
         )

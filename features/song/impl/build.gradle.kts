@@ -28,6 +28,7 @@ dependencies {
 
     implementation(projects.features.song.api)
     implementation(projects.features.recorder.api)
+    implementation(projects.features.foregroundPlayer.api)
 
     composeLibraries()
     hilt()

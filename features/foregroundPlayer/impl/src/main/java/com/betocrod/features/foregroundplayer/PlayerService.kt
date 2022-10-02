@@ -3,7 +3,6 @@ package com.betocrod.features.foregroundplayer
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import com.betocrod.features.foregroundplayer.api.PlayerBinder
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,17 +14,14 @@ class PlayerService : Service() {
     @Inject
     lateinit var exoPlayer: ExoPlayer
 
-    lateinit var binder: PlayerBinder
+    private lateinit var notificationManager: PlayerNotificationManager
 
-    lateinit var notificationManager: PlayerNotificationManager
-
-    override fun onBind(intent: Intent?): IBinder {
-        return binder
+    override fun onBind(intent: Intent?): IBinder? {
+        return null
     }
 
     override fun onCreate() {
         super.onCreate()
-        binder = PlayerBinderImpl()
         notificationManager = PlayerNotificationManager.Builder(
             /* context = */ this,
             /* notificationId = */ NOTIFICATION_ID,
@@ -35,13 +31,11 @@ class PlayerService : Service() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         if (exoPlayer.isPlaying) exoPlayer.stop()
         exoPlayer.release()
         stopForeground(STOP_FOREGROUND_REMOVE)
+        super.onDestroy()
     }
-
-    class PlayerBinderImpl : PlayerBinder()
 
     companion object {
         private const val NOTIFICATION_ID = 0x000

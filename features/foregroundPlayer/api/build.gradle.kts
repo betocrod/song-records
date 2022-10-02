@@ -10,4 +10,7 @@ android {
 
 dependencies {
     implementation(projects.common.navigation)
+    implementation(projects.domains.audios.api)
+
+    implementation(Dependencies.coroutines)
 }

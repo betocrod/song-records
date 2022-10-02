@@ -1,4 +1,4 @@
-package com.betocrod.features.song.impl.models
+package com.betocrod.features.foregroundplayer.api.models
 
 import com.betocrod.features.audios.api.models.MediaData
 
