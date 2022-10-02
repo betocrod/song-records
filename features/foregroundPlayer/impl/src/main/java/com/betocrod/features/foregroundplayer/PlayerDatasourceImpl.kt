@@ -11,26 +11,28 @@ import javax.inject.Inject
 class PlayerDatasourceImpl @Inject constructor() : PlayerDatasource {
 
     private val _state = MutableStateFlow<PlayerState>(PlayerState.None)
-    private var mediaData: MediaData? = null
+
+    override var currentData: MediaData? = null
+        private set
 
     override val currentTitle: CharSequence
-        get() = mediaData?.title.orEmpty()
+        get() = currentData?.title.orEmpty()
 
     override val currentContentText: CharSequence?
-        get() = mediaData?.content
+        get() = currentData?.content
 
     override val currentBitmap: Bitmap?
-        get() = mediaData?.bitmap
+        get() = currentData?.bitmap
 
     override val state: StateFlow<PlayerState> = _state
 
     override suspend fun play(mediaData: MediaData) {
-        this.mediaData = mediaData
+        this.currentData = mediaData
         _state.emit(PlayerState.Playing(mediaData))
     }
 
     override suspend fun pause(mediaData: MediaData) {
-        this.mediaData = mediaData
+        this.currentData = mediaData
         _state.emit(PlayerState.Paused(mediaData))
     }
 }

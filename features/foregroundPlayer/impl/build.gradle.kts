@@ -24,4 +24,5 @@ dependencies {
 
     implementation(Dependencies.exoplayerCore)
     implementation(Dependencies.exoplayerUi)
+    implementation(Dependencies.lifecycleRuntimeKtx)
 }

@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.IBinder
 import android.support.v4.media.session.MediaSessionCompat
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.features.foregroundplayer.api.PlayerDatasource
@@ -18,12 +19,19 @@ import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import com.google.android.exoplayer2.ui.PlayerNotificationManager.MediaDescriptionAdapter
 import com.google.android.exoplayer2.ui.PlayerNotificationManager.NotificationListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PlayerService : Service() {
+class PlayerService : Service(), Player.Listener {
 
     private lateinit var mediaSession: MediaSessionCompat
+
+    private val job = SupervisorJob()
+    private val coroutineScope = CoroutineScope(job)
 
     @Inject
     lateinit var exoPlayer: ExoPlayer
@@ -39,6 +47,26 @@ class PlayerService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        setupNotification()
+        exoPlayer.addListener(this)
+    }
+
+    override fun onIsPlayingChanged(isPlaying: Boolean) {
+        super.onIsPlayingChanged(isPlaying)
+        coroutineScope.launch(CoroutineExceptionHandler { _, ex ->
+            Log.e(TAG, ex.stackTraceToString())
+        }) {
+            playerDataSource.currentData?.let { mediaData ->
+                if (isPlaying) {
+                    playerDataSource.play(mediaData)
+                } else {
+                    playerDataSource.pause(mediaData)
+                }
+            }
+        }
+    }
+
+    private fun setupNotification() {
         mediaSession = MediaSessionCompat(applicationContext, getString(R.string.channel_name))
         mediaSession.isActive = true
         notificationManager = PlayerNotificationManager.Builder(
@@ -108,10 +136,13 @@ class PlayerService : Service() {
         notificationManager.setPlayer(null)
         stopForeground(STOP_FOREGROUND_REMOVE)
         mediaSession.release()
+        exoPlayer.removeListener(this)
         super.onDestroy()
     }
 
     companion object {
+        private const val TAG = "PlayerService::class"
+
         private const val NOTIFICATION_ID = 0x001
         private const val CHANNEL_ID = "CHANNEL_ID"
     }

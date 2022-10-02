@@ -7,6 +7,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface PlayerDatasource {
 
+    val currentData: MediaData?
+
     val currentTitle: CharSequence
     val currentContentText: CharSequence?
     val currentBitmap: Bitmap?
