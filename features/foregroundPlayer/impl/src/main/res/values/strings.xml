@@ -4,4 +4,5 @@
     <string name="feature_song_no_records_placeholder">No records found</string>
     <string name="feature_song_error">Unexpected error</string>
     <string name="feature_song_title">Song records</string>
+    <string name="channel_name">Song records</string>
 </resources>

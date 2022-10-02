@@ -18,6 +18,8 @@ dependencies {
 
     implementation(projects.features.foregroundPlayer.api)
 
+    implementation(projects.common.designSystem)
+
     hilt()
 
     implementation(Dependencies.exoplayerCore)
