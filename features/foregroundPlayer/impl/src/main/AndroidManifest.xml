@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <service
+            android:name="com.betocrod.features.foregroundplayer.PlayerService"
+            android:enabled="true"
+            android:exported="false" />
+    </application>
+
+</manifest>

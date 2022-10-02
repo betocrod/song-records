@@ -6,20 +6,19 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.betocrod.features.foregroundplayer.api.PlayerServiceLauncher
 import com.betocrod.features.recorder.api.RecorderFeatureNavGraph
 import com.betocrod.features.song.api.SongFeatureNavGraph
-import com.betocrod.features.song.impl.widgets.previewparameters.getSongData
 import javax.inject.Inject
 
 class SongFeatureNavGraphImpl @Inject constructor(
-    private val recorderFeatureNavGraph: RecorderFeatureNavGraph
+    private val recorderFeatureNavGraph: RecorderFeatureNavGraph,
+    private val playerServiceLauncher: PlayerServiceLauncher
 ) : SongFeatureNavGraph {
 
     private val route = "song"
 
-    private val paramSongId = "songId"
-
-    override fun route(songId: String) = "$route/$songId"
+    override fun route(songId: Int) = "$route/$songId"
 
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
@@ -27,20 +26,18 @@ class SongFeatureNavGraphImpl @Inject constructor(
         modifier: Modifier
     ) {
         navGraphBuilder.composable(
-            route = "$route/{$paramSongId}",
+            route = "$route/{$PARAM_SONG_ID}",
             arguments = listOf(
-                navArgument(paramSongId) {
+                navArgument(PARAM_SONG_ID) {
                     type = NavType.StringType
                     nullable = false
                 }
             )
         ) {
-            SongScaffold(
-                songState = getSongData(),
+            SongScreen(
                 onBackClick = { navController.popBackStack() },
-                onRecordClick = {
-                    navigateToRecorderScreen(navController)
-                }
+                onRecordClick = { navigateToRecorderScreen(navController) },
+                onPlayAudio = { playerServiceLauncher.start() }
             )
         }
     }
@@ -48,5 +45,9 @@ class SongFeatureNavGraphImpl @Inject constructor(
     private fun navigateToRecorderScreen(navController: NavHostController) {
         val route = recorderFeatureNavGraph.route("songId")
         navController.navigate(route)
+    }
+
+    companion object {
+        internal const val PARAM_SONG_ID = "songId"
     }
 }

@@ -45,4 +45,4 @@ fun includeCommons(vararg moduleName: String) {
 include(":app")
 includeCommons("designSystem", "navigation")
 includeDomains("audios")
-includeFeatures("main", "home", "song", "recorder")
+includeFeatures("main", "home", "song", "recorder", "foregroundPlayer")

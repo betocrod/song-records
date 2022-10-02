@@ -24,11 +24,15 @@ dependencies {
     implementation(projects.common.designSystem)
     implementation(projects.common.navigation)
 
+    implementation(projects.domains.audios.api)
+
     implementation(projects.features.song.api)
     implementation(projects.features.recorder.api)
+    implementation(projects.features.foregroundPlayer.api)
 
     composeLibraries()
     hilt()
 
-    implementation(Dependencies.composeCoil)
+    implementation(Dependencies.exoplayerCore)
+    implementation(Dependencies.hiltCompose)
 }
