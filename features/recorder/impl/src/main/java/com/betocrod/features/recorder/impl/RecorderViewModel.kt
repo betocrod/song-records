@@ -21,7 +21,7 @@ import javax.inject.Inject
 class RecorderViewModel @Inject constructor(
     private val findSongUC: FindSongUC,
     private val recordUC: RecordUC,
-    playerDatasource: PlayerDatasource,
+    private val playerDatasource: PlayerDatasource,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -38,6 +38,17 @@ class RecorderViewModel @Inject constructor(
     val progress = playerDatasource.progressState
 
     init {
+        stopCurrentlyPlayingSong()
+        updateInitialState()
+    }
+
+    private fun stopCurrentlyPlayingSong() {
+        viewModelScope.launch(CoroutineExceptionHandler { _, _ -> state = RecorderState.Error }) {
+            playerDatasource.stop()
+        }
+    }
+
+    private fun updateInitialState() {
         viewModelScope.launch(CoroutineExceptionHandler { _, _ -> state = RecorderState.Error }) {
             val song = findSongUC(songId)
             state = RecorderState.Success(

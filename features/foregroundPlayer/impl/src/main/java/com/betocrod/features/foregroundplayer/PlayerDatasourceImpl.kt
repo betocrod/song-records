@@ -44,6 +44,11 @@ class PlayerDatasourceImpl @Inject constructor(
         emitState(PlayerState.Paused(mediaData))
     }
 
+    override suspend fun stop() {
+        this.currentData = null
+        emitState(PlayerState.None)
+    }
+
     override suspend fun updateProgress() {
         val currentPosition = withContext(Dispatchers.Main) { exoPlayer.currentPosition.toFloat() }
         val duration = withContext(Dispatchers.Main) { exoPlayer.duration.toFloat() }
