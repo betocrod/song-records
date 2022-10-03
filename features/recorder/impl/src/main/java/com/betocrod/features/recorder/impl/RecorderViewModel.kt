@@ -58,15 +58,18 @@ class RecorderViewModel @Inject constructor(
         }
     }
 
-    fun startRecording() {
-        (state as? RecorderState.Success)?.let {
-            recordUC.start()
-            state = it.copy(recording = true)
+    fun startRecording() =
+        viewModelScope.launch(CoroutineExceptionHandler { _, _ -> state = RecorderState.Error }) {
+            (state as? RecorderState.Success)?.let {
+                playerDatasource.play(it.song.mediaData)
+                recordUC.start()
+                state = it.copy(recording = true)
+            }
         }
-    }
 
     fun stopRecording() = viewModelScope.launch {
         (state as? RecorderState.Success)?.let {
+            playerDatasource.stop()
             recordUC.stop()
             state = it.copy(recording = false)
             _onRecordFinished.emit(Unit)
