@@ -12,7 +12,6 @@ class RecordUCImpl @Inject constructor(
         recordAudioUC.start()
     }
 
-
     override fun stop() {
         recordAudioUC.stop()
     }

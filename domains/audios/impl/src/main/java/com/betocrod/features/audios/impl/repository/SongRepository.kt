@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
-class AudioRepository @Inject constructor(
+class SongRepository @Inject constructor(
     private val songDao: SongDao,
     private val appResources: AppResources
 ) {
