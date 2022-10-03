@@ -33,4 +33,5 @@ dependencies {
 
     implementation(Dependencies.composeCoil)
     implementation(Dependencies.hiltCompose)
+    implementation(Dependencies.accompanistPermissions)
 }

@@ -4,6 +4,8 @@ object Versions {
     const val androidLibrary = "7.4.0-alpha10"
     const val kotlin = "1.7.0"
 
+    const val accompanist = "0.26.4-beta"
+
     const val appCompat = "1.5.1"
 
     const val room = "2.4.3"
