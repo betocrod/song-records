@@ -4,5 +4,5 @@ interface RecordUC {
 
     fun start()
 
-    fun stop()
+    suspend fun stop(songId: Int)
 }

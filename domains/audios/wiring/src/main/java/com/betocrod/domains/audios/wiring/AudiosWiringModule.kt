@@ -1,13 +1,7 @@
 package com.betocrod.domains.audios.wiring
 
-import com.betocrod.features.audios.api.usecases.FindSongUC
-import com.betocrod.features.audios.api.usecases.GetSongsUC
-import com.betocrod.features.audios.api.usecases.ImportAudioUC
-import com.betocrod.features.audios.api.usecases.RecordUC
-import com.betocrod.features.audios.impl.usecase.FindSongUCImpl
-import com.betocrod.features.audios.impl.usecase.GetSongsUCImpl
-import com.betocrod.features.audios.impl.usecase.ImportAudioUCImpl
-import com.betocrod.features.audios.impl.usecase.RecordUCImpl
+import com.betocrod.features.audios.api.usecases.*
+import com.betocrod.features.audios.impl.usecase.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,4 +22,7 @@ abstract class AudiosWiringModule {
 
     @Binds
     abstract fun bindRecordUC(useCase: RecordUCImpl): RecordUC
+
+    @Binds
+    abstract fun bindRecordAudioUC(useCase: RecordAudioUCImpl): RecordAudioUC
 }

@@ -4,5 +4,5 @@ interface RecordAudioUC {
 
     fun start()
 
-    fun stop()
+    fun stop(): String
 }

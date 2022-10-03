@@ -3,6 +3,7 @@ package com.betocrod.features.audios.impl.wiring
 import android.content.Context
 import androidx.room.Room
 import com.betocrod.features.audios.impl.database.SongRecordsDatabase
+import com.betocrod.features.audios.impl.database.daos.RecordDao
 import com.betocrod.features.audios.impl.database.daos.SongDao
 import dagger.Module
 import dagger.Provides
@@ -30,6 +31,11 @@ class DaoWiringModule {
     @Provides
     fun provideSongsDao(database: SongRecordsDatabase): SongDao {
         return database.songDao()
+    }
+
+    @Provides
+    fun provideRecordsDao(database: SongRecordsDatabase): RecordDao {
+        return database.recordDao()
     }
 
     companion object {

@@ -14,13 +14,14 @@ class RecordAudioUCImpl @Inject constructor(
 ) : RecordAudioUC {
 
     private var mediaRecorder: MediaRecorder? = null
+    private var filePath = ""
 
     override fun start() {
-        val path = getFilePath()
+        filePath = getFilePath()
         mediaRecorder = MediaRecorder(context).apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            setOutputFile(path)
+            setOutputFile(filePath)
             setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
             prepare()
             start()
@@ -35,12 +36,13 @@ class RecordAudioUCImpl @Inject constructor(
         return file.absolutePath
     }
 
-    override fun stop() {
+    override fun stop(): String {
         mediaRecorder?.apply {
             stop()
             release()
         }
         mediaRecorder = null
+        return filePath
     }
 
     private fun getRecordsDir(): File {

@@ -70,7 +70,7 @@ class RecorderViewModel @Inject constructor(
     fun stopRecording() = viewModelScope.launch {
         (state as? RecorderState.Success)?.let {
             playerDatasource.stop()
-            recordUC.stop()
+            recordUC.stop(songId.toInt())
             state = it.copy(recording = false)
             _onRecordFinished.emit(Unit)
         }
