@@ -12,7 +12,7 @@ fun RecorderScreen(
     val state = viewModel.state
     RecordScreenScaffold(
         state = state,
-        onRecordClick = { TODO() },
+        onRecordClick = { viewModel.startRecording() },
         onBackClick = onBackClick
     )
 }
