@@ -19,10 +19,7 @@ import com.google.android.exoplayer2.ui.PlayerNotificationManager
 import com.google.android.exoplayer2.ui.PlayerNotificationManager.MediaDescriptionAdapter
 import com.google.android.exoplayer2.ui.PlayerNotificationManager.NotificationListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,6 +46,16 @@ class PlayerService : Service(), Player.Listener {
         super.onCreate()
         setupNotification()
         exoPlayer.addListener(this)
+        runProgressEventDispatcher()
+    }
+
+    private fun runProgressEventDispatcher() {
+        coroutineScope.launch {
+            while (true) {
+                playerDataSource.updateProgress()
+                delay(TIME_TO_REFRESH_TIME_PROGRESS)
+            }
+        }
     }
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
@@ -145,5 +152,6 @@ class PlayerService : Service(), Player.Listener {
 
         private const val NOTIFICATION_ID = 0x001
         private const val CHANNEL_ID = "CHANNEL_ID"
+        private const val TIME_TO_REFRESH_TIME_PROGRESS = 200L
     }
 }

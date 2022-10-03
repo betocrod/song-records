@@ -6,8 +6,10 @@ import com.betocrod.features.foregroundplayer.api.PlayerDatasource
 import com.betocrod.features.foregroundplayer.api.models.PlayerState
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PlayerDatasourceImpl @Inject constructor(
@@ -15,6 +17,7 @@ class PlayerDatasourceImpl @Inject constructor(
 ) : PlayerDatasource {
 
     private val _state = MutableStateFlow<PlayerState>(PlayerState.None)
+    private val _progressState = MutableStateFlow(0f)
 
     override var currentData: MediaData? = null
         private set
@@ -29,6 +32,7 @@ class PlayerDatasourceImpl @Inject constructor(
         get() = currentData?.bitmap
 
     override val state: StateFlow<PlayerState> = _state
+    override val progressState: StateFlow<Float> = _progressState
 
     override suspend fun play(mediaData: MediaData) {
         this.currentData = mediaData
@@ -40,8 +44,15 @@ class PlayerDatasourceImpl @Inject constructor(
         emitState(PlayerState.Paused(mediaData))
     }
 
+    override suspend fun updateProgress() {
+        val currentPosition = withContext(Dispatchers.Main) { exoPlayer.currentPosition.toFloat() }
+        val duration = withContext(Dispatchers.Main) { exoPlayer.duration.toFloat() }
+        val progressPercent = (currentPosition / duration).takeIf { it != 1f } ?: 0f
+        _progressState.emit(progressPercent)
+    }
+
     private suspend fun emitState(state: PlayerState) {
-        exoPlayer.updateExoplayer(state)
+        withContext(Dispatchers.Main) { exoPlayer.updateExoplayer(state) }
         _state.emit(state)
     }
 
