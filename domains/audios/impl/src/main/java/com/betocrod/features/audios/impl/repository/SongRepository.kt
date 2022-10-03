@@ -5,8 +5,11 @@ import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import com.betocrod.domains.audios.impl.R
 import com.betocrod.features.audios.api.models.MediaData
+import com.betocrod.features.audios.api.models.Record
 import com.betocrod.features.audios.api.models.Song
+import com.betocrod.features.audios.api.models.SongWithRecords
 import com.betocrod.features.audios.impl.database.daos.SongDao
+import com.betocrod.features.audios.impl.database.entities.RecordEntity
 import com.betocrod.features.audios.impl.database.entities.SongEntity
 import com.betocrod.features.audios.impl.resource.AppResources
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +34,16 @@ class SongRepository @Inject constructor(
         mediaMetadataRetriever.extractMetadata(entity)
     }
 
+    suspend fun findSongWithRecords(songId: String): SongWithRecords = withContext(Dispatchers.IO) {
+        val mediaMetadataRetriever = MediaMetadataRetriever()
+        val songWithRecords = songDao.findSongWithRecords(songId)
+        val entity = songWithRecords.song
+        mediaMetadataRetriever.setDataSource(entity.filePath)
+        val song = mediaMetadataRetriever.extractMetadata(entity)
+        val records = songWithRecords.records.map { mediaMetadataRetriever.extractMetadata(it) }
+        SongWithRecords(song, records)
+    }
+
     fun findAllSongs(): Flow<List<Song>> {
         return songDao.findAll().map { mapSongs(it) }
     }
@@ -45,7 +58,7 @@ class SongRepository @Inject constructor(
     }
 
     private fun MediaMetadataRetriever.extractMetadata(it: SongEntity): Song {
-        val title = getTitle(it)
+        val title = getTitle(it.filePath)
         val bitmap = getBitmap()
         val artist = (extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST)
             ?: unknown())
@@ -66,9 +79,23 @@ class SongRepository @Inject constructor(
         )
     }
 
-    private fun MediaMetadataRetriever.getTitle(entity: SongEntity): String {
+    private fun MediaMetadataRetriever.extractMetadata(it: RecordEntity): Record {
+        val title = getTitle(it.filePath)
+        return Record(
+            id = it.id,
+            title = title,
+            mediaData = MediaData(
+                filePath = it.filePath,
+                title = title,
+                content = null,
+                bitmap = null
+            )
+        )
+    }
+
+    private fun MediaMetadataRetriever.getTitle(filePath: String): String {
         return extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE)
-            ?: File(entity.filePath).nameWithoutExtension
+            ?: File(filePath).nameWithoutExtension
     }
 
     private fun MediaMetadataRetriever.getBitmap(): Bitmap? {

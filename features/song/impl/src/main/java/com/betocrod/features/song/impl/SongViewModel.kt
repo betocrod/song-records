@@ -8,7 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.betocrod.features.audios.api.models.MediaData
-import com.betocrod.features.audios.api.usecases.FindSongUC
+import com.betocrod.features.audios.api.usecases.FindSongWithRecordsUC
 import com.betocrod.features.foregroundplayer.api.PlayerDatasource
 import com.betocrod.features.song.impl.models.SongState
 import com.google.android.exoplayer2.ExoPlayer
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SongViewModel @Inject constructor(
-    private val findSongUC: FindSongUC,
+    private val findSongWithRecordsUC: FindSongWithRecordsUC,
     private val playerDatasource: PlayerDatasource,
     val player: ExoPlayer,
     savedStateHandle: SavedStateHandle
@@ -43,7 +43,8 @@ class SongViewModel @Inject constructor(
             songState = SongState.Error
         }) {
             songState = try {
-                SongState.SongData(findSongUC(songId), emptyList())
+                val songWithRecords = findSongWithRecordsUC(songId)
+                SongState.SongData(songWithRecords.song, songWithRecords.records)
             } catch (ex: CancellationException) {
                 SongState.Error
             }

@@ -16,9 +16,9 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.features.audios.api.models.MediaData
+import com.betocrod.features.audios.api.models.Record
 import com.betocrod.features.audios.api.models.Song
 import com.betocrod.features.song.impl.R
-import com.betocrod.features.song.impl.domain.models.Record
 import com.betocrod.features.song.impl.models.SongState
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongStateProvider
 

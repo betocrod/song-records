@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.designsystem.space.SmallSpace
-import com.betocrod.features.song.impl.domain.models.Record
+import com.betocrod.features.audios.api.models.Record
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleRecordProvider
 
 @Composable
@@ -35,7 +35,7 @@ fun RecordItemWidget(
         ) {
             Text(
                 modifier = Modifier.weight(1f),
-                text = "${record.date} - ${record.name}"
+                text = record.title
             )
             SmallSpace()
             IconButton(onClick = { onMoreClick() }) {

@@ -21,6 +21,9 @@ abstract class AudiosWiringModule {
     abstract fun bindGetSongUC(useCase: FindSongUCImpl): FindSongUC
 
     @Binds
+    abstract fun bindGetSongWithRecordsUC(useCase: FindSongWithRecordsUCImpl): FindSongWithRecordsUC
+
+    @Binds
     abstract fun bindRecordUC(useCase: RecordUCImpl): RecordUC
 
     @Binds

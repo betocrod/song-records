@@ -1,12 +1,22 @@
 package com.betocrod.features.song.impl.widgets.previewparameters
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.betocrod.features.song.impl.domain.models.Record
+import com.betocrod.features.audios.api.models.MediaData
+import com.betocrod.features.audios.api.models.Record
 
 class SampleRecordProvider : PreviewParameterProvider<Record> {
     override val values: Sequence<Record>
         get() = sequenceOf(
-            Record("March 25, 2022", "Vocal warming")
+            Record(
+                id = 0,
+                title = "Vocal warming",
+                mediaData = MediaData(
+                    filePath = "filePath",
+                    title = "title",
+                    content = null,
+                    bitmap = null
+                )
+            )
         )
 }
 
@@ -19,4 +29,15 @@ class SampleRecordListProvider : PreviewParameterProvider<List<Record>> {
         )
 }
 
-fun getRecords() = (0..15).map { Record("March $it, 2022", "Vocal warming $it") }
+fun getRecords() = (0..15).map {
+    Record(
+        id = it,
+        title = "Vocal warming $it",
+        mediaData = MediaData(
+            filePath = "filePath",
+            title = "title",
+            content = null,
+            bitmap = null
+        )
+    )
+}
