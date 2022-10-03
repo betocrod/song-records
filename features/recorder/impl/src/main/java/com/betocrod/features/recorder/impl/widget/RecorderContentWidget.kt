@@ -20,6 +20,7 @@ import com.betocrod.features.recorder.impl.widget.previewparameters.SampleRecord
 fun RecorderContent(
     state: RecorderState.Success,
     onRecordClick: () -> Unit,
+    onStopClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -31,7 +32,11 @@ fun RecorderContent(
         ) {
             SongWidget(state.song)
             LargeSpace()
-            RecordButton(state.recording, { onRecordClick() })
+            RecordButton(
+                recording = state.recording,
+                onRecordClick = onRecordClick,
+                onStopClick = onStopClick
+            )
         }
         SongProgress(
             progress = state.progress,
@@ -54,6 +59,6 @@ private fun SongProgress(progress: Float, modifier: Modifier = Modifier) {
 @Composable
 fun PreviewRecorderContent(@PreviewParameter(SampleRecorderStateSuccessProvider::class) state: RecorderState.Success) {
     SongRecordsTheme {
-        RecorderContent(state = state, onRecordClick = {})
+        RecorderContent(state = state, onRecordClick = {}, onStopClick = {})
     }
 }

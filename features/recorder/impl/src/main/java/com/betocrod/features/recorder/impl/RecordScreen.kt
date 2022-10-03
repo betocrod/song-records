@@ -13,6 +13,7 @@ fun RecorderScreen(
     RecordScreenScaffold(
         state = state,
         onRecordClick = { viewModel.startRecording() },
+        onStopClick = { viewModel.stopRecording() },
         onBackClick = onBackClick
     )
 }

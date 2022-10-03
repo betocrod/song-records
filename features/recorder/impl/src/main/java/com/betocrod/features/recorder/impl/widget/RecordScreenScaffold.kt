@@ -25,6 +25,7 @@ import com.betocrod.features.recorder.impl.widget.previewparameters.SampleRecord
 fun RecordScreenScaffold(
     state: RecorderState,
     onRecordClick: () -> Unit,
+    onStopClick: () -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -55,7 +56,8 @@ fun RecordScreenScaffold(
                         .fillMaxSize()
                         .padding(it),
                     state = state,
-                    onRecordClick = onRecordClick
+                    onRecordClick = onRecordClick,
+                    onStopClick = onStopClick
                 )
                 RecorderState.Loading -> ReorderLoadingContent(
                     modifier = Modifier.fillMaxSize()
@@ -96,6 +98,7 @@ fun PreviewRecordScreenScaffold(@PreviewParameter(SampleRecorderStateProvider::c
         RecordScreenScaffold(
             state = recorderState,
             onRecordClick = {},
+            onStopClick = {},
             onBackClick = {},
             modifier = Modifier.fillMaxSize()
         )

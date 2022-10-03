@@ -18,11 +18,12 @@ import com.betocrod.features.recorder.impl.widget.previewparameters.SamplePrevie
 fun RecordButton(
     recording: Boolean,
     onRecordClick: () -> Unit,
+    onStopClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     IconButton(
         modifier = modifier.size(64.dp),
-        onClick = { onRecordClick() },
+        onClick = { if (recording) onStopClick() else onRecordClick() },
         content = {
             Icon(
                 modifier = Modifier.size(64.dp),
@@ -38,6 +39,6 @@ fun RecordButton(
 @Composable
 fun PreviewRecordButton(@PreviewParameter(SamplePreviewProvider::class) recording: Boolean) {
     SongRecordsTheme {
-        RecordButton(recording = recording, onRecordClick = {})
+        RecordButton(recording = recording, onRecordClick = {}, onStopClick = {})
     }
 }
