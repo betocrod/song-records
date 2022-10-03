@@ -6,10 +6,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.betocrod.features.foregroundplayer.api.PlayerServiceLauncher
 import com.betocrod.features.recorder.api.RecorderFeatureNavGraph
 import javax.inject.Inject
 
-class RecorderFeatureNavGraphImpl @Inject constructor() : RecorderFeatureNavGraph {
+class RecorderFeatureNavGraphImpl @Inject constructor(
+    private val playerServiceLauncher: PlayerServiceLauncher
+) : RecorderFeatureNavGraph {
 
     private val route = "recorder"
 
@@ -30,7 +33,8 @@ class RecorderFeatureNavGraphImpl @Inject constructor() : RecorderFeatureNavGrap
             )
         ) {
             RecorderScreen(
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
+                onRecordClick = { playerServiceLauncher.start() }
             )
         }
     }

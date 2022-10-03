@@ -14,6 +14,7 @@ import com.google.accompanist.permissions.rememberPermissionState
 @Composable
 fun RecorderScreen(
     onBackClick: () -> Unit,
+    onRecordClick: () -> Unit,
     viewModel: RecorderViewModel = hiltViewModel()
 ) {
     val recordAudioPermission = rememberPermissionState(permission = RECORD_AUDIO)
@@ -28,6 +29,7 @@ fun RecorderScreen(
                     recordAudioPermission.launchPermissionRequest()
                 }
                 PermissionStatus.Granted -> {
+                    onRecordClick()
                     viewModel.startRecording()
                 }
             }
