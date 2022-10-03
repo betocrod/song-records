@@ -24,10 +24,6 @@ fun SongScreen(
         viewModel.updateProgress(exoplayer.currentPosition, exoplayer.duration)
     }
 
-    LaunchedEffect(playerState) {
-        exoplayer.updateExoplayer(playerState)
-    }
-
     CompositionLocalProvider(LocalPlayerState provides playerState) {
         SongScaffold(
             songState = viewModel.songState,
@@ -63,20 +59,5 @@ private fun LoopEffect(
     }
 }
 
-private fun ExoPlayer.updateExoplayer(state: PlayerState) {
-    when (state) {
-        PlayerState.None -> {
-            stop()
-            clearMediaItems()
-        }
-        is PlayerState.Playing -> {
-            val item = MediaItem.fromUri(state.mediaData.filePath)
-            addMediaItem(item)
-            prepare()
-            play()
-        }
-        is PlayerState.Paused -> pause()
-    }
-}
 
 private const val TIME_TO_REFRESH_TIME_PROGRESS = 200L
