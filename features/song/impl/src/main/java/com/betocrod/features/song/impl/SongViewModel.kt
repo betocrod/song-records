@@ -35,8 +35,7 @@ class SongViewModel @Inject constructor(
 
     var playerState = playerDatasource.state
 
-    var progress: Float by mutableStateOf(0f)
-        private set
+    var progress = playerDatasource.progressState
 
     init {
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
@@ -60,10 +59,6 @@ class SongViewModel @Inject constructor(
         .launch(CoroutineExceptionHandler { _, ex -> Log.e(TAG, ex.stackTraceToString()) }) {
             playerDatasource.pause(mediaData)
         }
-
-    fun updateProgress(currentPosition: Long, duration: Long) = viewModelScope.launch {
-        progress = (currentPosition.toFloat() / duration.toFloat()).takeIf { it != 1f } ?: 0f
-    }
 
     companion object {
         private const val TAG = "SongViewModel::class"

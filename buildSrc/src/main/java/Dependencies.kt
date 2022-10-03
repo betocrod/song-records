@@ -10,6 +10,10 @@ object Dependencies {
     // Android
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
 
+    // Accompanist
+    const val accompanistPermissions = "com.google.accompanist:accompanist-permissions:${Versions.accompanist}"
+
+
     // Compose
     const val composeUI = "androidx.compose.ui:ui:${Versions.compose}"
     const val composePreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"

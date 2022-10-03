@@ -36,14 +36,14 @@ class SongFeatureNavGraphImpl @Inject constructor(
         ) {
             SongScreen(
                 onBackClick = { navController.popBackStack() },
-                onRecordClick = { navigateToRecorderScreen(navController) },
+                onRecordClick = { songId -> navigateToRecorderScreen(navController, songId) },
                 onPlayAudio = { playerServiceLauncher.start() }
             )
         }
     }
 
-    private fun navigateToRecorderScreen(navController: NavHostController) {
-        val route = recorderFeatureNavGraph.route("songId")
+    private fun navigateToRecorderScreen(navController: NavHostController, songId: Int) {
+        val route = recorderFeatureNavGraph.route(songId)
         navController.navigate(route)
     }
 

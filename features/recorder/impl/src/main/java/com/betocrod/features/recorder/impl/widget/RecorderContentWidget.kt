@@ -1,6 +1,9 @@
 package com.betocrod.features.recorder.impl.widget
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,26 +19,31 @@ import com.betocrod.features.recorder.impl.widget.previewparameters.SampleRecord
 @Composable
 fun RecorderContent(
     state: RecorderState.Success,
+    progress: Float,
     onRecordClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(8.dp)
+    onStopClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = modifier.padding(contentPadding)
+        modifier = modifier
     ) {
         Column(
             Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SongWidget(state.song)
+            SongWidget(state.song, Modifier.padding(horizontal = 32.dp))
             LargeSpace()
-            RecordButton(state.recording, { onRecordClick() })
+            RecordButton(
+                recording = state.recording,
+                onRecordClick = onRecordClick,
+                onStopClick = onStopClick
+            )
         }
         SongProgress(
-            progress = state.progress,
+            progress = progress,
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.BottomCenter)
+                .align(Alignment.BottomCenter),
         )
     }
 }
@@ -52,6 +60,6 @@ private fun SongProgress(progress: Float, modifier: Modifier = Modifier) {
 @Composable
 fun PreviewRecorderContent(@PreviewParameter(SampleRecorderStateSuccessProvider::class) state: RecorderState.Success) {
     SongRecordsTheme {
-        RecorderContent(state = state, onRecordClick = {})
+        RecorderContent(state = state, onRecordClick = {}, onStopClick = {}, progress = 0.5f)
     }
 }

@@ -13,7 +13,10 @@ interface PlayerDatasource {
     val currentContentText: CharSequence?
     val currentBitmap: Bitmap?
 
+    val progressState: StateFlow<Float>
     val state: StateFlow<PlayerState>
     suspend fun play(mediaData: MediaData)
     suspend fun pause(mediaData: MediaData)
+    suspend fun stop()
+    suspend fun updateProgress()
 }

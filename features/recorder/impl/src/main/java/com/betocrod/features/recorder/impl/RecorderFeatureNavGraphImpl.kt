@@ -6,17 +6,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.betocrod.features.foregroundplayer.api.PlayerServiceLauncher
 import com.betocrod.features.recorder.api.RecorderFeatureNavGraph
-import com.betocrod.features.recorder.impl.widget.previewparameters.getSuccessState
 import javax.inject.Inject
 
-class RecorderFeatureNavGraphImpl @Inject constructor() : RecorderFeatureNavGraph {
+class RecorderFeatureNavGraphImpl @Inject constructor(
+    private val playerServiceLauncher: PlayerServiceLauncher
+) : RecorderFeatureNavGraph {
 
     private val route = "recorder"
 
-    private val paramSongId = "songId"
-
-    override fun route(songId: String) = "$route/$songId"
+    override fun route(songId: Int) = "$route/$songId"
 
     override fun registerGraph(
         navGraphBuilder: NavGraphBuilder,
@@ -24,19 +24,22 @@ class RecorderFeatureNavGraphImpl @Inject constructor() : RecorderFeatureNavGrap
         modifier: Modifier
     ) {
         navGraphBuilder.composable(
-            route = "$route/{$paramSongId}",
+            route = "$route/{$PARAM_SONG_ID}",
             arguments = listOf(
-                navArgument(paramSongId) {
+                navArgument(PARAM_SONG_ID) {
                     type = NavType.StringType
                     nullable = false
                 }
             )
         ) {
-            RecordScreenScaffold(
-                state = getSuccessState(),
-                onRecordClick = { /*TODO*/ },
-                onBackClick = { navController.popBackStack() }
+            RecorderScreen(
+                onBackClick = { navController.popBackStack() },
+                onRecordClick = { playerServiceLauncher.start() }
             )
         }
+    }
+
+    companion object {
+        internal const val PARAM_SONG_ID = "songId"
     }
 }

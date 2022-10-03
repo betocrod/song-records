@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import com.betocrod.designsystem.DSDrawable
 import com.betocrod.designsystem.SongRecordsTheme
 import com.betocrod.features.audios.api.models.MediaData
-import com.betocrod.features.song.impl.R
 import com.betocrod.features.foregroundplayer.api.models.PlayerState
+import com.betocrod.features.song.impl.R
 import com.betocrod.features.song.impl.models.SongState
 import com.betocrod.features.song.impl.widgets.compositionlocal.LocalPlayerState
 import com.betocrod.features.song.impl.widgets.previewparameters.SampleSongStateProvider
@@ -27,7 +27,7 @@ fun SongScaffold(
     songState: SongState,
     playerProgress: Float,
     onBackClick: () -> Unit,
-    onRecordClick: () -> Unit,
+    onRecordClick: (Int) -> Unit,
     onPlayClick: (MediaData) -> Unit,
     onPauseClick: (MediaData) -> Unit,
     onProgressChange: (Float) -> Unit,
@@ -59,7 +59,9 @@ fun SongScaffold(
             )
         },
         floatingActionButton = {
-            RecordButton(onClick = { onRecordClick() })
+            (songState as? SongState.SongData)?.let {
+                RecordButton(onClick = { onRecordClick(it.song.id) })
+            }
         },
         bottomBar = {
             AnimatedVisibility(
