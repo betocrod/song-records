@@ -18,7 +18,10 @@ class RecordUCImpl @Inject constructor(
     override fun start() {
         val path = getFilePath()
         mediaRecorder = MediaRecorder(context).apply {
+            setAudioSource(MediaRecorder.AudioSource.MIC)
+            setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
             setOutputFile(path)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
             prepare()
             start()
         }
@@ -27,7 +30,9 @@ class RecordUCImpl @Inject constructor(
     private fun getFilePath(): String {
         val dir = getRecordsDir()
         val fileName = getFileName()
-        return File(dir, fileName).absolutePath
+        val file = File(dir, fileName)
+        file.createNewFile()
+        return file.absolutePath
     }
 
     override fun stop() {
@@ -41,7 +46,7 @@ class RecordUCImpl @Inject constructor(
     private fun getRecordsDir(): File {
         val dir = File(context.filesDir, RECORD_DIR_NAME)
         if (!dir.isDirectory) {
-            context.filesDir.mkdir()
+            dir.mkdir()
         }
         return dir
     }
@@ -49,7 +54,7 @@ class RecordUCImpl @Inject constructor(
     private fun getFileName(): String {
         val pattern = "dd-MM-yyyy - HH:mm:ss"
         val dateTime = SimpleDateFormat(pattern, Locale.getDefault()).format(Date())
-        return "record_$dateTime"
+        return "record_$dateTime.3gp"
     }
 
     companion object {
