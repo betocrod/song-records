@@ -13,12 +13,10 @@ class SampleRecorderStateProvider : PreviewParameterProvider<RecorderState> {
             RecorderState.Success(
                 song = getSong(),
                 recording = false,
-                progress = 0f
             ),
             RecorderState.Success(
                 song = getSong(),
                 recording = true,
-                progress = 0.35f
             )
         )
 }
@@ -31,11 +29,9 @@ class SampleRecorderStateSuccessProvider : PreviewParameterProvider<RecorderStat
             RecorderState.Success(
                 song = getSong(),
                 recording = true,
-                progress = 0.35f
             )
         )
 }
-
 
 fun getSong() =
     Song(
@@ -50,5 +46,4 @@ fun getSong() =
 fun getSuccessState() = RecorderState.Success(
     song = getSong(),
     recording = false,
-    progress = 0f
 )

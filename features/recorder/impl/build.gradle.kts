@@ -27,6 +27,7 @@ dependencies {
     implementation(projects.domains.audios.api)
 
     implementation(projects.features.recorder.api)
+    implementation(projects.features.foregroundPlayer.api)
 
     composeLibraries()
     hilt()

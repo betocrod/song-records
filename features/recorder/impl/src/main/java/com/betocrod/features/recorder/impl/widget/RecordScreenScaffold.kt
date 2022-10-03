@@ -23,6 +23,7 @@ import com.betocrod.features.recorder.impl.widget.previewparameters.SampleRecord
 @Composable
 fun RecordScreenScaffold(
     state: RecorderState,
+    progress: Float,
     onRecordClick: () -> Unit,
     onStopClick: () -> Unit,
     onBackClick: () -> Unit,
@@ -55,6 +56,7 @@ fun RecordScreenScaffold(
                         .fillMaxSize()
                         .padding(it),
                     state = state,
+                    progress = progress,
                     onRecordClick = onRecordClick,
                     onStopClick = onStopClick
                 )
@@ -96,6 +98,7 @@ fun PreviewRecordScreenScaffold(@PreviewParameter(SampleRecorderStateProvider::c
     SongRecordsTheme {
         RecordScreenScaffold(
             state = recorderState,
+            progress = 0.4f,
             onRecordClick = {},
             onStopClick = {},
             onBackClick = {},

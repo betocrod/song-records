@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.betocrod.features.audios.api.usecases.FindSongUC
 import com.betocrod.features.audios.api.usecases.RecordUC
+import com.betocrod.features.foregroundplayer.api.PlayerDatasource
 import com.betocrod.features.recorder.impl.models.RecorderState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class RecorderViewModel @Inject constructor(
     private val findSongUC: FindSongUC,
     private val recordUC: RecordUC,
+    playerDatasource: PlayerDatasource,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -33,13 +35,14 @@ class RecorderViewModel @Inject constructor(
     var state: RecorderState by mutableStateOf(RecorderState.Loading)
         private set
 
+    val progress = playerDatasource.progressState
+
     init {
         viewModelScope.launch(CoroutineExceptionHandler { _, _ -> state = RecorderState.Error }) {
             val song = findSongUC(songId)
             state = RecorderState.Success(
                 song = song,
                 recording = false,
-                progress = 0f
             )
         }
     }
